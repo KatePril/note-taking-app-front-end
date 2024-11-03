@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:note_taking_app/entities/note.dart';
 
 class NoteWidget extends StatefulWidget {
-  Note note;
+  String title;
 
-  NoteWidget(this.note, {super.key});
+  NoteWidget(this.title, {super.key});
 
   @override
   State<NoteWidget> createState() => _NoteState();
@@ -20,7 +20,7 @@ class _NoteState extends State<NoteWidget> {
         height: 50,
         child: Center(
           child: Text(
-            widget.note.title,
+            widget.title,
             style: TextStyle(
               fontSize: 18, // Change the font size here
               fontWeight: FontWeight.bold, // Make the text bold

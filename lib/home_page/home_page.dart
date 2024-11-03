@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/entities/note.dart';
+import 'package:note_taking_app/widgets/note/note_screen.dart';
 import 'package:note_taking_app/widgets/note/note_widget.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -12,11 +13,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<NoteWidget> notes = List.empty(growable: true);
+  List<Note> notes = List.empty(growable: true);
 
   void _addNote() {
     setState(() {
-      notes.add(NoteWidget(Note("New note")));
+      notes.add(Note("New note"));
     });
   }
 
@@ -24,14 +25,26 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme
+            .of(context)
+            .colorScheme
+            .inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: notes,
-        ),
+      body: ListView.builder(
+          itemCount: notes.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: NoteWidget(notes[index].title),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(
+                    builder: (context) => NoteScreen(note: notes[index])
+                )
+                );
+              },
+            );
+          }
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addNote,
