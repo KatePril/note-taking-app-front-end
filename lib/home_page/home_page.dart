@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:note_taking_app/entities/Note.dart';
+import 'package:note_taking_app/entities/note.dart';
+import 'package:note_taking_app/widgets/note/note_widget.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -11,11 +12,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Note> notes = List.empty(growable: true);
+  List<NoteWidget> notes = List.empty(growable: true);
 
   void _addNote() {
     setState(() {
-      notes.add(Note("New note"));
+      notes.add(NoteWidget(Note("New note")));
     });
   }
 
