@@ -4,9 +4,9 @@ import 'package:note_taking_app/widgets/note/note_screen.dart';
 import 'package:note_taking_app/widgets/note/note_widget.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
   final String title;
+
+  const MyHomePage({super.key, required this.title});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
