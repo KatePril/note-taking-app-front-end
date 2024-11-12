@@ -1,4 +1,4 @@
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:note_taking_app/entities/items/item.dart';
 import 'package:note_taking_app/widgets/item/text_item_widget.dart';
 
