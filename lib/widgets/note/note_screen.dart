@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:image_input/image_input.dart';
 import 'package:note_taking_app/entities/items/header_item.dart';
 import 'package:note_taking_app/entities/items/item.dart';
 import 'package:note_taking_app/entities/items/text_item.dart';
+import 'package:note_taking_app/widgets/item/imageItem/add_image_dialog.dart';
+import 'package:note_taking_app/widgets/item/imageItem/image_input.dart';
 import '../../entities/note.dart';
 
 class NoteScreen extends StatefulWidget {
@@ -101,7 +104,23 @@ class _NoteScreenState extends State<NoteScreen> {
               });
               break;
             case 2:
-              note.addItem(TextItem(""));
+              showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Select images'),
+                  content: const MyImageInput(),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'Save'),
+                      child: const Text('Save'),
+                    ),
+                  ],
+                ),
+              );
               break;
             case 3:
               note.addItem(TextItem(""));
