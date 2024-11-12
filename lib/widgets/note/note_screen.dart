@@ -53,11 +53,12 @@ class _NoteScreenState extends State<NoteScreen> {
           ],
         ),
       ),
-      body: Center(
-        child: Column(
-          children: note.items.map((Item item) => item.buildWidget()).toList(),
+      body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: note.items.map((Item item) => item.buildWidget()).toList(),
+          ),
         ),
-      ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
