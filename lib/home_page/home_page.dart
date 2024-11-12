@@ -39,7 +39,10 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () {
                 Navigator.push(
                     context, MaterialPageRoute(
-                    builder: (context) => NoteScreen(note: notes[index])
+                    builder: (context) => NoteScreen(
+                       note: notes[index],
+                      homeState: (Function() func) => setState(func),
+                    )
                 )
                 );
               },

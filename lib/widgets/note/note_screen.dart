@@ -6,19 +6,20 @@ import '../../entities/note.dart';
 
 class NoteScreen extends StatefulWidget {
   final Note note;
+  final Function(Function()) homeState;
 
-  const NoteScreen({super.key, required this.note});
+  const NoteScreen({super.key, required this.note, required this.homeState});
 
   @override
-  State<StatefulWidget> createState() => _NoteScreenState(note);
+  State<StatefulWidget> createState() => _NoteScreenState(note, homeState);
 }
 
 class _NoteScreenState extends State<NoteScreen> {
   final Note note;
   late TextEditingController _titleController;
-  late Function(Function()) homeState;
+  final Function(Function()) homeState;
 
-  _NoteScreenState(this.note) {
+  _NoteScreenState(this.note, this.homeState) {
     _titleController = TextEditingController(text: note.title);
   }
 
@@ -35,14 +36,14 @@ class _NoteScreenState extends State<NoteScreen> {
             Expanded(
               child: TextField(
                 controller: _titleController,
-                onChanged: (value) => note.title = _titleController.text,
+                onChanged: (value) => homeState(() => note.title = value),
               ),
             ),
             FilledButton(
                 onPressed: () {
                   // TODO
                 },
-                child: Text("Save"),
+                child: const Text("Save"),
             )
           ],
         ),
@@ -55,7 +56,7 @@ class _NoteScreenState extends State<NoteScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.h_mobiledata),
+            icon: const Icon(Icons.h_mobiledata),
             label: 'Header',
             backgroundColor: Theme
                 .of(context)
@@ -63,7 +64,7 @@ class _NoteScreenState extends State<NoteScreen> {
                 .onPrimaryContainer,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.text_fields),
+            icon: const Icon(Icons.text_fields),
             label: 'Text',
             backgroundColor: Theme
                 .of(context)
@@ -71,7 +72,7 @@ class _NoteScreenState extends State<NoteScreen> {
                 .onPrimaryContainer,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.image),
+            icon: const Icon(Icons.image),
             label: 'Image',
             backgroundColor: Theme
                 .of(context)
@@ -79,7 +80,7 @@ class _NoteScreenState extends State<NoteScreen> {
                 .onPrimaryContainer,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.draw),
+            icon: const Icon(Icons.draw),
             label: 'Draw',
             backgroundColor: Theme
                 .of(context)
@@ -88,7 +89,6 @@ class _NoteScreenState extends State<NoteScreen> {
           ),
         ],
         onTap: (index) {
-          // Handle navigation or functionality for each button here
           switch (index) {
             case 0:
               setState(() {
