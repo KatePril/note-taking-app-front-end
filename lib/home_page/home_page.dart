@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/entities/note.dart';
-import 'package:note_taking_app/widgets/note/note_screen.dart';
+import 'package:note_taking_app/widgets/note/screen/note_screen.dart';
 import 'package:note_taking_app/widgets/note/note_widget.dart';
 
 class MyHomePage extends StatefulWidget {

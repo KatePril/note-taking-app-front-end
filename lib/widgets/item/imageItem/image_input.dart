@@ -34,12 +34,10 @@ class _MyImageInputState extends State<MyImageInput> {
               allowEdit: true,
               allowMaxImage: 1,
               getPreferredCameraDevice: () async =>
-              await CameraDeviceProvider().getPreferredCameraDevice(context),
+                  await CameraDeviceProvider().getPreferredCameraDevice(context),
               getImageSource: () async => await ImageSourceProvider().getImageSource(context),
-              onImageSelected: (image) async {
-                print(image.path);
-                print(image.name);
 
+              onImageSelected: (image) async {
                 var b = await image.readAsBytes();
 
                 setState(() {
@@ -60,14 +58,6 @@ class _MyImageInputState extends State<MyImageInput> {
               },
             ),
           ),
-
-          // SingleChildScrollView(
-          //   scrollDirection: Axis.horizontal,
-          //   child: Row(
-          //     children: images,
-          //   ),
-          // ),
-
         ],
       ),
     );
