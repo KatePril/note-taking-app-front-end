@@ -15,7 +15,10 @@ class _NoteState extends State<NoteWidget> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.green,
+      color: Theme
+          .of(context)
+          .colorScheme
+          .primary,
       child: SizedBox(
         height: 50,
         child: Center(

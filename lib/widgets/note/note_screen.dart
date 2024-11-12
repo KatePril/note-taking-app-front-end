@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/entities/items/header_item.dart';
 import 'package:note_taking_app/entities/items/item.dart';
 import 'package:note_taking_app/entities/items/text_item.dart';
 import '../../entities/note.dart';
@@ -39,6 +40,7 @@ class _NoteScreenState extends State<NoteScreen> {
             ),
             FilledButton(
                 onPressed: () {
+                  // TODO
                 },
                 child: Text("Save"),
             )
@@ -90,11 +92,13 @@ class _NoteScreenState extends State<NoteScreen> {
           switch (index) {
             case 0:
               setState(() {
-                note.addItem(TextItem(""));
+                note.addItem(HeaderItem(""));
               });
               break;
             case 1:
-              note.addItem(TextItem(""));
+              setState(() {
+                note.addItem(TextItem(""));
+              });
               break;
             case 2:
               note.addItem(TextItem(""));

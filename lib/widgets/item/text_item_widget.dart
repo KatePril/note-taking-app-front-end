@@ -22,12 +22,16 @@ class _TextItemWidgetState extends State<TextItemWidget> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.greenAccent,
+      color: Theme
+          .of(context)
+          .colorScheme
+          .inversePrimary,
       child: Padding(
-        padding: const EdgeInsets.all(16.0), // Adjust the padding value as needed
+        padding: const EdgeInsets.all(16.0),
         child: TextField(
           controller: _textController,
           onChanged: (value) => item.text = _textController.text,
+          maxLines: null,
         ),
       ),
     );
