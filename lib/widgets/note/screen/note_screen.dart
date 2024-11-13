@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -46,10 +47,11 @@ class _NoteScreenState extends State<NoteScreen> {
               ),
             ),
             FilledButton(
-                onPressed: () {
-                  // TODO
+                onPressed: () async {
+                  final file = File("${note.title}.pdf");
+                  await file.writeAsBytes(await note.buildDocument().save());
                 },
-                child: const Text("Save"),
+                child: const Text("Export"),
             )
           ],
         ),
