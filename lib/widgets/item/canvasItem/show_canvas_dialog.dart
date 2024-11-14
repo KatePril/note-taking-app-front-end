@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+  import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/entities/items/canvas_item.dart';
@@ -10,9 +10,7 @@ class CanvasDialogShower {
 
   static final CanvasDialogShower _instance = CanvasDialogShower._internal();
 
-  factory CanvasDialogShower() {
-    return _instance;
-  }
+  factory CanvasDialogShower() => _instance;
 
   void showCanvasDialog(BuildContext context, Function(Function()) setState, Note note) {
     late Uint8List image;

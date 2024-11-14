@@ -2,8 +2,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_input/image_input.dart';
-import 'package:note_taking_app/widgets/item/imageItem/utils/camera_device_provider.dart';
-import 'package:note_taking_app/widgets/item/imageItem/utils/image_source_dialog.dart';
+import 'package:note_taking_app/widgets/item/imageItem/image_input/utils/camera_device_provider.dart';
+import 'package:note_taking_app/widgets/item/imageItem/image_input/utils/image_source_dialog.dart';
 
 class MyImageInput extends StatefulWidget {
   final Function(Uint8List) setImage;

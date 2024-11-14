@@ -29,9 +29,7 @@ class NoteBottomNavigationBar extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
         ),
       ],
-      onTap: (index) {
-        functions[index]!();
-      },
+      onTap: (index) => functions[index]!(),
     );
   }
 }
