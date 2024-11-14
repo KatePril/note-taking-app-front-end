@@ -14,7 +14,6 @@ class _TextItemWidgetState extends State<TextItemWidget> {
   late TextItem item;
   late TextEditingController _textController;
 
-
   @override
   void initState() {
     super.initState();

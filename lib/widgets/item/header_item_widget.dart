@@ -15,7 +15,6 @@ class _HeaderItemWidgetState extends State<HeaderItemWidget> {
   late HeaderItem item;
   late TextEditingController _headerController;
 
-
   @override
   void initState() {
     super.initState();

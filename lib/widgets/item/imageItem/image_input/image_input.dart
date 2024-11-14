@@ -32,31 +32,33 @@ class _MyImageInputState extends State<MyImageInput> {
               allowMaxImage: 1,
               getPreferredCameraDevice: () async =>
                   await CameraDeviceProvider().getPreferredCameraDevice(context),
-              getImageSource: () async => await ImageSourceProvider().getImageSource(context),
-// TODO
-              onImageSelected: (image) async {
-                var b = await image.readAsBytes();
-
-                setState(() {
-                  imageInputImages.add(image);
-                  widget.setImage(b);
-                });
-              },
-
-              onImageRemoved: (image, index) {
-                setState(() {
-                  imageInputImages.remove(image);
-                });
-              },
-              loadingBuilder: (context, progress) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              },
+              getImageSource: () async =>
+                  await ImageSourceProvider().getImageSource(context),
+              onImageSelected: onImageSelected,
+              onImageRemoved: onImageRemoved,
+              loadingBuilder: (context, progress) => const Center(
+                child: CircularProgressIndicator(),
+              ),
             ),
           ),
         ],
       ),
     );
   }
+
+  void onImageSelected(image) async {
+    var b = await image.readAsBytes();
+    setState(() {
+      imageInputImages.add(image);
+      widget.setImage(b);
+    });
+  }
+
+  void onImageRemoved(image, index) {
+    setState(() {
+      imageInputImages.remove(image);
+    });
+  }
+
+
 }

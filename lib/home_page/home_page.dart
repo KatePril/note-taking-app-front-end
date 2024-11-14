@@ -30,22 +30,22 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: ListView.builder(
-          itemCount: notes.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: NoteWidget(notes[index].title),
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(
-                    builder: (context) => NoteScreen(
-                       note: notes[index],
-                      homeState: setState,
-                    )
-                )
-                );
-              },
-            );
-          }
+        itemCount: notes.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: NoteWidget(notes[index].title),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(
+                  builder: (context) => NoteScreen(
+                     note: notes[index],
+                    homeState: setState,
+                  )
+              )
+              );
+            },
+          );
+        }
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addNote,
