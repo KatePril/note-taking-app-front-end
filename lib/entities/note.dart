@@ -27,8 +27,8 @@ class Note {
             child: pw.Text(
               title,
               style: pw.TextStyle(
-                  fontWeight: pw.FontWeight.bold,
-                  fontSize: 18
+                fontWeight: pw.FontWeight.bold,
+                fontSize: 18
               ),
             ),
           );

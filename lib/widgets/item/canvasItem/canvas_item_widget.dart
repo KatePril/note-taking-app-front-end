@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/entities/items/canvas_item.dart';
 

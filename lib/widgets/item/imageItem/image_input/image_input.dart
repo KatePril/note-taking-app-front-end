@@ -33,7 +33,7 @@ class _MyImageInputState extends State<MyImageInput> {
               getPreferredCameraDevice: () async =>
                   await CameraDeviceProvider().getPreferredCameraDevice(context),
               getImageSource: () async => await ImageSourceProvider().getImageSource(context),
-
+// TODO
               onImageSelected: (image) async {
                 var b = await image.readAsBytes();
 

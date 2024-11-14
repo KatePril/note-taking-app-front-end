@@ -11,13 +11,6 @@ class ImageItemWidget extends StatefulWidget {
 }
 
 class _ImageItemWidgetState extends State<ImageItemWidget> {
-  late ImageItem item;
-
-  @override
-  void initState() {
-    super.initState();
-    item = widget.item;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +21,8 @@ class _ImageItemWidgetState extends State<ImageItemWidget> {
           .inversePrimary,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Image.memory(item.image_bytes, fit: BoxFit.fitWidth,),
+        child: Image.memory(widget.item.image_bytes, fit: BoxFit.fitWidth,),
       ),
     );
   }
-
 }

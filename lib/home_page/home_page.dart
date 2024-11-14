@@ -15,11 +15,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<Note> notes = List.empty(growable: true);
 
-  void _addNote() {
-    setState(() {
+  void _addNote() => setState(() {
       notes.add(Note("New note"));
     });
-  }
 
   @override
   Widget build(BuildContext context) {

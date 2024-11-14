@@ -17,8 +17,8 @@ class CanvasDialogShower {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => Dialog(
-        insetPadding: EdgeInsets.zero, // Removes padding around the dialog
-        child: SizedBox.expand( // Makes the dialog take up the full screen
+        insetPadding: EdgeInsets.zero,
+        child: SizedBox.expand(
           child: Scaffold(
             appBar: AppBar(
               backgroundColor: Theme.of(context).colorScheme.inversePrimary,

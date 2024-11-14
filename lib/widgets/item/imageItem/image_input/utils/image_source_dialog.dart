@@ -23,10 +23,11 @@ class ImageSourceProvider {
               },
             ),
             SimpleDialogOption(
-                child: const Text("Gallery"),
-                onPressed: () {
-                  Navigator.of(context).pop(ImageSource.gallery);
-                }),
+              child: const Text("Gallery"),
+              onPressed: () {
+                Navigator.of(context).pop(ImageSource.gallery);
+              }
+            ),
           ],
         );
       },

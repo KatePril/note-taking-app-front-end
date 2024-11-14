@@ -48,6 +48,7 @@ class _NoteCanvasState extends State<NoteCanvas> {
         Offset(screenSize.width, screenSize.height)
       )
     );
+
     Pencil(points).paint(canvas, Size(
       screenSize.width,
       screenSize.height
