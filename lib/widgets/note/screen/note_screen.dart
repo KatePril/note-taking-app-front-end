@@ -101,24 +101,28 @@ class _NoteScreenState extends State<NoteScreen> {
             late Uint8List image;
             showDialog<String>(
               context: context,
-              builder: (BuildContext context) => AlertDialog(
-                title: const Text('Draw your note'),
-                content: NoteCanvas(setImage: (Future<Uint8List> bytes) async => image = await bytes),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'Cancel'),
-                    child: const Text('Cancel'),
+              builder: (BuildContext context) => Dialog(
+                insetPadding: EdgeInsets.zero, // Removes padding around the dialog
+                child: SizedBox.expand( // Makes the dialog take up the full screen
+                  child: Scaffold(
+                    appBar: AppBar(
+                      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                      title: const Text('Draw your note'),
+                      actions: [
+                        FilledButton(
+                          onPressed: () {
+                            Navigator.pop(context, 'Save');
+                            setState(() {
+                              note.addItem(CanvasItem(image));
+                            });
+                          },
+                          child: const Text('Save', style: TextStyle(color: Colors.white)),
+                        ),
+                      ],
+                    ),
+                    body: NoteCanvas(setImage: (Future<Uint8List> bytes) async => image = await bytes),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context, 'Save');
-                      setState(() {
-                        note.addItem(CanvasItem(image));
-                      });
-                    },
-                    child: const Text('Save'),
-                  ),
-                ],
+                ),
               ),
             );
           }
