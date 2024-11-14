@@ -11,7 +11,9 @@ class NoteCanvas extends StatefulWidget {
 }
 
 class _NoteCanvasState extends State<NoteCanvas> {
-  List<Offset?> points = [];
+  final List<Offset?> points = [];
+
+  _NoteCanvasState();
 
   @override
   Widget build(BuildContext context) {
