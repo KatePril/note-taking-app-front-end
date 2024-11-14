@@ -30,7 +30,7 @@ class _NoteCanvasState extends State<NoteCanvas> {
       },
       onPanEnd: (details) {
         points.add(null);
-        setImage(_createImageBytes());
+        setImage(_createImageBytes(context));
       },
       child: CustomPaint(
         painter: Pencil(points),
@@ -39,20 +39,26 @@ class _NoteCanvasState extends State<NoteCanvas> {
     );
   }
 
-  Future<Uint8List> _createImageBytes() async {
+  Future<Uint8List> _createImageBytes(BuildContext context) async {
+    final screenSize = MediaQuery.of(context).size;
     final recorder = ui.PictureRecorder();
     final canvas = ui.Canvas(
-        recorder,
-        ui.Rect.fromPoints(
-            const Offset(0, 0),
-            const Offset(500, 500)
-        )
+      recorder,
+      ui.Rect.fromPoints(
+        const Offset(0, 0),
+        Offset(screenSize.width, screenSize.height)
+      )
     );
-
-    Pencil(points).paint(canvas, const Size(500, 500));
+    Pencil(points).paint(canvas, Size(
+      screenSize.width,
+      screenSize.height
+    ));
 
     final picture = recorder.endRecording();
-    final img = await picture.toImage(500, 500);
+    final img = await picture.toImage(
+      screenSize.width.toInt(),
+      screenSize.height.toInt()
+    );
     final bytes = await img.toByteData(format: ui.ImageByteFormat.png);
 
     return bytes!.buffer.asUint8List();
