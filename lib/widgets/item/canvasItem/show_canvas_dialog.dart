@@ -35,7 +35,9 @@ class CanvasDialogShower {
                 ),
               ],
             ),
-            body: NoteCanvas(setImage: (Future<Uint8List> bytes) async => image = await bytes),
+            body: NoteCanvas(
+              setImage: (Future<Uint8List> bytes) async => image = await bytes
+            ),
           ),
         ),
       ),

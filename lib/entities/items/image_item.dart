@@ -7,11 +7,11 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class ImageItem extends Item {
-  final Uint8List _image_bytes;
+  final Uint8List _imageBytes;
 
-  ImageItem(this._image_bytes);
+  ImageItem(this._imageBytes);
 
-  Uint8List get image_bytes => _image_bytes;
+  Uint8List get imageBytes => _imageBytes;
 
   @override
   Widget buildWidget() {
@@ -24,7 +24,7 @@ class ImageItem extends Item {
       pageFormat: PdfPageFormat.a4,
       build: (pw.Context context) {
         return pw.Center(
-          child:  pw.Image(pw.MemoryImage(_image_bytes)),
+          child:  pw.Image(pw.MemoryImage(_imageBytes)),
         );
       }
     );

@@ -21,7 +21,7 @@ class _CanvasItemWidgetState extends State<CanvasItemWidget> {
         },
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Image.memory(widget.item.image_bytes, fit: BoxFit.fitWidth,),
+          child: Image.memory(widget.item.imageBytes, fit: BoxFit.fitWidth,),
         ),
       ),
     );
