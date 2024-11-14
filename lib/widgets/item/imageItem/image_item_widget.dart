@@ -7,13 +7,17 @@ class ImageItemWidget extends StatefulWidget {
   const ImageItemWidget({super.key, required this.item});
 
   @override
-  State<StatefulWidget> createState() => _ImageItemWidgetState(item);
+  State<StatefulWidget> createState() => _ImageItemWidgetState();
 }
 
 class _ImageItemWidgetState extends State<ImageItemWidget> {
-  final ImageItem item;
+  late ImageItem item;
 
-  _ImageItemWidgetState(this.item);
+  @override
+  void initState() {
+    super.initState();
+    item = widget.item;
+  }
 
   @override
   Widget build(BuildContext context) {

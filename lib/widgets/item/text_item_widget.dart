@@ -7,14 +7,18 @@ class TextItemWidget extends StatefulWidget {
   const TextItemWidget({super.key, required this.item});
 
   @override
-  State<StatefulWidget> createState() => _TextItemWidgetState(item);
+  State<StatefulWidget> createState() => _TextItemWidgetState();
 }
 
 class _TextItemWidgetState extends State<TextItemWidget> {
-  final TextItem item;
+  late TextItem item;
   late TextEditingController _textController;
 
-  _TextItemWidgetState(this.item) {
+
+  @override
+  void initState() {
+    super.initState();
+    item = widget.item;
     _textController = TextEditingController(text: item.text);
   }
 

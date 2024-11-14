@@ -8,13 +8,17 @@ class CanvasItemWidget extends StatefulWidget {
   const CanvasItemWidget({super.key, required this.item});
 
   @override
-  State<StatefulWidget> createState() => _CanvasItemWidgetState(item);
+  State<StatefulWidget> createState() => _CanvasItemWidgetState();
 }
 
 class _CanvasItemWidgetState extends State<CanvasItemWidget> {
-  final CanvasItem item;
+  late CanvasItem item;
 
-  _CanvasItemWidgetState(this.item);
+  @override
+  void initState() {
+    super.initState();
+    item = widget.item;
+  }
 
   @override
   Widget build(BuildContext context) {

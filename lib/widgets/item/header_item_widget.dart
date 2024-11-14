@@ -7,15 +7,19 @@ class HeaderItemWidget extends StatefulWidget {
   const HeaderItemWidget({super.key, required this.item});
 
   @override
-  State<StatefulWidget> createState() => _HeaderItemWidgetState(item);
+  State<StatefulWidget> createState() => _HeaderItemWidgetState();
 
 }
 
 class _HeaderItemWidgetState extends State<HeaderItemWidget> {
-  final HeaderItem item;
+  late HeaderItem item;
   late TextEditingController _headerController;
 
-  _HeaderItemWidgetState(this.item) {
+
+  @override
+  void initState() {
+    super.initState();
+    item = widget.item;
     _headerController = TextEditingController(text: item.text);
   }
 
