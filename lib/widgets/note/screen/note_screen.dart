@@ -1,13 +1,10 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/entities/items/header_item.dart';
-import 'package:note_taking_app/entities/items/image_item.dart';
 import 'package:note_taking_app/entities/items/item.dart';
 import 'package:note_taking_app/entities/items/text_item.dart';
 import 'package:note_taking_app/widgets/item/canvasItem/show_canvas_dialog.dart';
-import 'package:note_taking_app/widgets/item/imageItem/image_input/image_input.dart';
 import 'package:note_taking_app/widgets/item/imageItem/image_input/show_image_dialog.dart';
 import 'package:note_taking_app/widgets/note/screen/note_bottom_navigation_bar.dart';
 
@@ -25,7 +22,6 @@ class NoteScreen extends StatefulWidget {
 
 class _NoteScreenState extends State<NoteScreen> {
   late Note note;
-  late Function(Function()) homeState;
   late TextEditingController _titleController;
 
 
@@ -33,7 +29,6 @@ class _NoteScreenState extends State<NoteScreen> {
   void initState() {
     super.initState();
     note = widget.note;
-    homeState = widget.homeState;
     _titleController = TextEditingController(text: note.title);
   }
 
@@ -50,7 +45,7 @@ class _NoteScreenState extends State<NoteScreen> {
             Expanded(
               child: TextField(
                 controller: _titleController,
-                onChanged: (value) => homeState(() => note.title = value),
+                onChanged: (value) => widget.homeState(() => note.title = value),
               ),
             ),
             FilledButton(

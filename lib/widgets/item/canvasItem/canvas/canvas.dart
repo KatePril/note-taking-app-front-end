@@ -10,15 +10,14 @@ class NoteCanvas extends StatefulWidget {
   const NoteCanvas({super.key, required this.setImage});
 
   @override
-  State<StatefulWidget> createState() => _NoteCanvasState(setImage);
+  State<StatefulWidget> createState() => _NoteCanvasState();
 
 }
 
 class _NoteCanvasState extends State<NoteCanvas> {
   final List<Offset?> points = [];
-  final Function(Future<Uint8List>) setImage;
 
-  _NoteCanvasState(this.setImage);
+  _NoteCanvasState();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class _NoteCanvasState extends State<NoteCanvas> {
       },
       onPanEnd: (details) {
         points.add(null);
-        setImage(_createImageBytes(context));
+        widget.setImage(_createImageBytes(context));
       },
       child: CustomPaint(
         painter: Pencil(points),

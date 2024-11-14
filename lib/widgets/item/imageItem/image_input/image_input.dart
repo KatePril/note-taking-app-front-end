@@ -11,14 +11,11 @@ class MyImageInput extends StatefulWidget {
   const MyImageInput({super.key, required this.setImage});
 
   @override
-  State<MyImageInput> createState() => _MyImageInputState(setImage);
+  State<MyImageInput> createState() => _MyImageInputState();
 }
 
 class _MyImageInputState extends State<MyImageInput> {
   List<XFile> imageInputImages = [];
-  final Function(Uint8List) setImage;
-
-  _MyImageInputState(this.setImage);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +39,7 @@ class _MyImageInputState extends State<MyImageInput> {
 
                 setState(() {
                   imageInputImages.add(image);
-                  setImage(b);
+                  widget.setImage(b);
                 });
               },
 
