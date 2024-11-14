@@ -2,10 +2,12 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/entities/items/canvas_item.dart';
 import 'package:note_taking_app/entities/items/header_item.dart';
 import 'package:note_taking_app/entities/items/image_item.dart';
 import 'package:note_taking_app/entities/items/item.dart';
 import 'package:note_taking_app/entities/items/text_item.dart';
+import 'package:note_taking_app/widgets/item/canvasItem/canvas/canvas.dart';
 import 'package:note_taking_app/widgets/item/imageItem/image_input.dart';
 import 'package:note_taking_app/widgets/note/screen/note_bottom_navigation_bar.dart';
 
@@ -96,7 +98,29 @@ class _NoteScreenState extends State<NoteScreen> {
             );
           },
           3: () {
-            //TODO
+            late Uint8List image;
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Draw your note'),
+                content: NoteCanvas(setImage: (Future<Uint8List> bytes) async => image = await bytes),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context, 'Save');
+                      setState(() {
+                        note.addItem(CanvasItem(image));
+                      });
+                    },
+                    child: const Text('Save'),
+                  ),
+                ],
+              ),
+            );
           }
         }
       )

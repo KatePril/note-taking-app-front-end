@@ -1,27 +1,22 @@
 import 'dart:typed_data';
-import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/entities/items/item.dart';
-import 'package:note_taking_app/widgets/item/canvasItem/canvas/pencil.dart';
+import 'package:note_taking_app/widgets/item/canvasItem/canvas_item_widget.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class CanvasItem extends Item {
-  final List<Offset?> _points = [];
-  late Uint8List _image_bytes;
+  final Uint8List _image_bytes;
 
-  List<Offset?> get points => _points;
+  CanvasItem(this._image_bytes);
+
   Uint8List get image_bytes => _image_bytes;
 
   @override
   Widget buildWidget() {
-    // TODO: implement buildWidget
-    throw UnimplementedError();
+    return CanvasItemWidget(item: this);
   }
-
-  Future<void> prepareImageData() async =>
-      _image_bytes = await _createImageBytes();
 
   @override
   pw.Page buildPdf() {
@@ -35,25 +30,6 @@ class CanvasItem extends Item {
         );
       }
     );
-  }
-
-  Future<Uint8List> _createImageBytes() async {
-    final recorder = ui.PictureRecorder();
-    final canvas = ui.Canvas(
-      recorder,
-      ui.Rect.fromPoints(
-        const Offset(0, 0),
-        const Offset(500, 500)
-      )
-    );
-
-    Pencil(points).paint(canvas, const Size(500, 500));
-
-    final picture = recorder.endRecording();
-    final img = await picture.toImage(500, 500);
-    final bytes = await img.toByteData(format: ui.ImageByteFormat.png);
-
-    return bytes!.buffer.asUint8List();
   }
 
 }
