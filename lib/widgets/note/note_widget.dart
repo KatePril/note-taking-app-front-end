@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 
-class NoteWidget extends StatefulWidget {
+class NoteWidget extends StatelessWidget {
   String title;
 
   NoteWidget(this.title, {super.key});
 
-  @override
-  State<NoteWidget> createState() => _NoteWidgetState();
-}
-
-class _NoteWidgetState extends State<NoteWidget> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -21,7 +16,7 @@ class _NoteWidgetState extends State<NoteWidget> {
         height: 50,
         child: Center(
           child: Text(
-            widget.title,
+            title,
             style: const TextStyle(
               fontSize: 18, // Change the font size here
               fontWeight: FontWeight.bold, // Make the text bold
