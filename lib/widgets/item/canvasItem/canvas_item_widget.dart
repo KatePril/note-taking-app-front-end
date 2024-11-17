@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/entities/items/canvas_item.dart';
+import 'package:note_taking_app/widgets/item/canvasItem/show_canvas_dialog.dart';
 
 class CanvasItemWidget extends StatefulWidget {
   final CanvasItem item;
@@ -17,7 +18,7 @@ class _CanvasItemWidgetState extends State<CanvasItemWidget> {
     return Card(
       child: InkWell(
         onTap: () {
-          //TODO
+          CanvasDialogShower().showCanvasDialog(context, setState, item: widget.item);
         },
         child: Padding(
           padding: const EdgeInsets.all(16.0),

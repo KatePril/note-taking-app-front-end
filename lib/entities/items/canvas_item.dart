@@ -7,11 +7,16 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class CanvasItem extends Item {
-  final Uint8List _imageBytes;
+  Uint8List _imageBytes;
 
   CanvasItem(this._imageBytes);
 
   Uint8List get imageBytes => _imageBytes;
+
+
+  set imageBytes(Uint8List value) {
+    _imageBytes = value;
+  }
 
   @override
   Widget buildWidget() {

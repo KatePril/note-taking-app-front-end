@@ -75,7 +75,7 @@ class _NoteScreenState extends State<NoteScreen> {
           2: () =>
             ImageDialogShower().showImageDialog(context, setState, note),
           3: () =>
-            CanvasDialogShower().showCanvasDialog(context, setState, note),
+            CanvasDialogShower().showCanvasDialog(context, setState, note: note),
         }
       )
     );

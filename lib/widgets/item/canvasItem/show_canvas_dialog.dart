@@ -12,7 +12,7 @@ class CanvasDialogShower {
 
   factory CanvasDialogShower() => _instance;
 
-  void showCanvasDialog(BuildContext context, Function(Function()) setState, Note note) {
+  void showCanvasDialog(BuildContext context, Function(Function()) setState, {Note? note, CanvasItem? item}) {
     late Uint8List image;
     showDialog<String>(
       context: context,
@@ -28,7 +28,8 @@ class CanvasDialogShower {
                   onPressed: () {
                     Navigator.pop(context, 'Save');
                     setState(() {
-                      note.addItem(CanvasItem(image));
+                      note?.addItem(CanvasItem(image));
+                      item?.imageBytes = image;
                     });
                   },
                   child: const Text('Save', style: TextStyle(color: Colors.white)),
