@@ -8,6 +8,7 @@ import 'package:pdf/widgets.dart' as pw;
 
 class CanvasItem extends Item {
   Uint8List _imageBytes;
+  List<Offset?> points = [];
 
   CanvasItem(this._imageBytes);
 

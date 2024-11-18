@@ -14,6 +14,7 @@ class CanvasDialogShower {
 
   void showCanvasDialog(BuildContext context, Function(Function()) setState, {Note? note, CanvasItem? item}) {
     late Uint8List image;
+    late List<Offset?> points;
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => Dialog(
@@ -28,8 +29,12 @@ class CanvasDialogShower {
                   onPressed: () {
                     Navigator.pop(context, 'Save');
                     setState(() {
-                      note?.addItem(CanvasItem(image));
+                      note?.addItem(
+                          CanvasItem(image)
+                              ..points = points
+                      );
                       item?.imageBytes = image;
+                      item?.points = points;
                     });
                   },
                   child: const Text('Save', style: TextStyle(color: Colors.white)),
@@ -37,8 +42,11 @@ class CanvasDialogShower {
               ],
             ),
             body: NoteCanvas(
-              setImage: (Future<Uint8List> bytes) async => image = await bytes
-            ),
+              setImage: (Future<Uint8List> bytes, List<Offset?> offsets) async {
+                image = await bytes;
+                points = offsets;
+              },
+            )..points = item != null ? item.points : [],
           ),
         ),
       ),

@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:note_taking_app/widgets/item/canvasItem/canvas/pencil.dart';
 
 class NoteCanvas extends StatefulWidget {
-  final Function(Future<Uint8List>) setImage;
+  final Function(Future<Uint8List>, List<Offset?>) setImage;
+  List<Offset?> points = [];
 
-  const NoteCanvas({super.key, required this.setImage});
+  NoteCanvas({super.key, required this.setImage});
 
   @override
   State<StatefulWidget> createState() => _NoteCanvasState();
@@ -17,7 +18,14 @@ class NoteCanvas extends StatefulWidget {
 class _NoteCanvasState extends State<NoteCanvas> {
   final List<Offset?> points = [];
 
-  _NoteCanvasState();
+  @override
+  void initState() {
+    super.initState();
+    if (widget.points.isNotEmpty) {
+      points.addAll(widget.points);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +37,7 @@ class _NoteCanvasState extends State<NoteCanvas> {
       },
       onPanEnd: (details) {
         points.add(null);
-        widget.setImage(_createImageBytes(context));
+        widget.setImage(_createImageBytes(context), points);
       },
       child: CustomPaint(
         painter: Pencil(points),
