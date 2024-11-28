@@ -7,6 +7,8 @@ class SignInPage extends StatefulWidget {
   User user = User.newUser("", "");
   String message = "";
 
+  SignInPage({super.key});
+
   @override
   State<StatefulWidget> createState() => _SignInPageState();
 
@@ -25,12 +27,12 @@ class _SignInPageState extends State<SignInPage> {
 
   void navigateToHome(int id) {
     Navigator.push(
-        context, MaterialPageRoute(
-        builder: (context) => MyHomePage(
-            title: 'Note Taker',
-            id: id
-        )
-    )
+      context, MaterialPageRoute(
+      builder: (context) => MyHomePage(
+          title: 'Note Taker',
+          id: id
+      )
+      )
     );
   }
 
@@ -41,6 +43,19 @@ class _SignInPageState extends State<SignInPage> {
         widget.message = "Username already exists";
       });
     } else {
+      // TODO clear state
+      navigateToHome(id);
+    }
+  }
+
+  void logIn() async {
+    int id = await UserApi.getUserId(widget.user);
+    if (id == -1) {
+      setState(() {
+        widget.message = "Incorrect username or password";
+      });
+    } else {
+      // TODO clear state
       navigateToHome(id);
     }
   }
@@ -123,9 +138,7 @@ class _SignInPageState extends State<SignInPage> {
                   backgroundColor: Theme
                       .of(context).colorScheme.primary
                 ),
-                onPressed: () {
-                  navigateToHome(0);
-                },
+                onPressed: () => logIn(),
                 child: const Text("Log in"),
               ),
               FilledButton(
@@ -133,9 +146,7 @@ class _SignInPageState extends State<SignInPage> {
                     backgroundColor: Theme
                         .of(context).colorScheme.tertiary
                 ),
-                onPressed: () {
-                  createNewUser();
-                },
+                onPressed: () => createNewUser(),
                 child: const Text("Sign in"),
               ),
             ],

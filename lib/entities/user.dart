@@ -11,7 +11,7 @@ class User {
 
   Map<String, dynamic> toJson() {
     var id = userId != null ? '"user_id": $userId,' : "";
-    String user = '{$id"username": $username,"password": $password}';
+    String user = '{$id"username": "$username","password": "$password"}';
     return jsonDecode(user);
   }
 
