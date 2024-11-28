@@ -5,8 +5,9 @@ import 'package:note_taking_app/widgets/note/note_widget.dart';
 
 class MyHomePage extends StatefulWidget {
   final String title;
+  final int id;
 
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title, required this.id});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -41,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
                      note: notes[index],
                     homeState: setState,
                   )
-              )
+                )
               );
             },
           );
