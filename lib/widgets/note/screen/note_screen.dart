@@ -49,12 +49,20 @@ class _NoteScreenState extends State<NoteScreen> {
               ),
             ),
             FilledButton(
+              onPressed: () async {
+                final file = File("${note.title.replaceAll(' ', '_')}.pdf");
+                await file.writeAsBytes(await note.buildDocument().save());
+              },
+              child: const Icon(Icons.save_as, size: 24),
+            ),
+            const SizedBox(width: 12,),
+            FilledButton(
                 onPressed: () async {
                   final file = File("${note.title.replaceAll(' ', '_')}.pdf");
                   await file.writeAsBytes(await note.buildDocument().save());
                 },
-                child: const Text("Export"),
-            )
+                child: const Icon(Icons.save_alt, size: 24),
+            ),
           ],
         ),
       ),
