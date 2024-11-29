@@ -24,6 +24,8 @@ class NoteApi {
   }
 
   static Future<Note> updateNote(Note note) async {
+    print(note);
+    print(jsonEncode(note.toJson()));
     http.Response response = await http.put(
       Uri.parse(_uri),
       headers: {'Content-Type': 'application/json'},

@@ -13,11 +13,13 @@ class Note {
   Note.withId(this._noteId, this._title, this._userId);
 
   static Note fromJson(Map<String, dynamic> note) {
-    var noteId = note["note_id"];
+    var noteId = note["noteId"];
     var title = note["title"];
     var userId = note["user"]["userId"];
     return Note.withId(noteId, title, userId);
   }
+
+  int get noteId => _noteId ?? -1;
 
   String get title => _title;
 
@@ -55,9 +57,13 @@ class Note {
   }
 
   Map<String, dynamic> toJson() {
-    var id = _noteId != null ? '"note_id": $_noteId,' : "";
+    var id = _noteId != null ? '"noteId": $_noteId,' : "";
     String note = '{$id"title": "$title","user": {"userId": $_userId}}';
     return jsonDecode(note);
   }
 
+  @override
+  String toString() {
+    return "$_noteId, $title, $_userId";
+  }
 }

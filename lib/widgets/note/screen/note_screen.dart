@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/db_connection/note_api.dart';
 import 'package:note_taking_app/entities/items/header_item.dart';
 import 'package:note_taking_app/entities/items/item.dart';
 import 'package:note_taking_app/entities/items/text_item.dart';
@@ -50,8 +51,7 @@ class _NoteScreenState extends State<NoteScreen> {
             ),
             FilledButton(
               onPressed: () async {
-                final file = File("${note.title.replaceAll(' ', '_')}.pdf");
-                await file.writeAsBytes(await note.buildDocument().save());
+                NoteApi.updateNote(note);
               },
               child: const Icon(Icons.save_as, size: 24),
             ),
@@ -61,7 +61,8 @@ class _NoteScreenState extends State<NoteScreen> {
                   final file = File("${note.title.replaceAll(' ', '_')}.pdf");
                   await file.writeAsBytes(await note.buildDocument().save());
                 },
-                child: const Icon(Icons.save_alt, size: 24),
+                child: Text(widget.note.noteId.toString()),
+                // child: const Icon(Icons.save_alt, size: 24),
             ),
           ],
         ),
