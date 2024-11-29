@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/db_connection/note_api.dart';
 import 'package:note_taking_app/entities/note.dart';
 import 'package:note_taking_app/widgets/note/screen/note_screen.dart';
 import 'package:note_taking_app/widgets/note/note_widget.dart';
@@ -16,8 +17,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<Note> notes = List.empty(growable: true);
 
+  @override
+  void initState() {
+    super.initState();
+    _loadNotes();
+  }
+
+  Future<void> _loadNotes() async {
+    notes = await NoteApi.getNotesByUser(widget.id);
+    setState(() {});
+  }
+
   void _addNote() => setState(() {
-      notes.add(Note("New note"));
+      notes.add(Note("New note", widget.id));
+      NoteApi.createNote(Note("New note", widget.id));
     });
 
   @override

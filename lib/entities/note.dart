@@ -1,12 +1,23 @@
 import 'package:note_taking_app/entities/items/item.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'dart:convert';
 
 class Note {
+  int? _noteId;
   String _title;
+  final int _userId;
   final List<Item> _items = List.empty(growable: true);
 
-  Note(this._title);
+  Note(this._title, this._userId);
+  Note.withId(this._noteId, this._title, this._userId);
+
+  static Note fromJson(Map<String, dynamic> note) {
+    var noteId = note["note_id"];
+    var title = note["title"];
+    var userId = note["user"]["userId"];
+    return Note.withId(noteId, title, userId);
+  }
 
   String get title => _title;
 
@@ -41,6 +52,12 @@ class Note {
     }
 
     return pdf;
+  }
+
+  Map<String, dynamic> toJson() {
+    var id = _noteId != null ? '"note_id": $_noteId,' : "";
+    String note = '{$id"title": "$title","user": {"userId": $_userId}}';
+    return jsonDecode(note);
   }
 
 }
