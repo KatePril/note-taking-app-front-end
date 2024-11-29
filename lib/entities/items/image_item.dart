@@ -6,10 +6,16 @@ import 'package:note_taking_app/widgets/item/imageItem/image_item_widget.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-class ImageItem extends Item {
-  final Uint8List _imageBytes;
+import 'dart:convert';
 
-  ImageItem(this._imageBytes);
+class ImageItem extends Item {
+  int? itemId;
+  final Uint8List _imageBytes;
+  final int noteId;
+
+  ImageItem(this._imageBytes, this.noteId);
+
+  ImageItem.withId(this.itemId, this._imageBytes, this.noteId);
 
   Uint8List get imageBytes => _imageBytes;
 
@@ -32,8 +38,9 @@ class ImageItem extends Item {
 
   @override
   Map<String, dynamic> toJson() {
-    // TODO: implement toJson
-    throw UnimplementedError();
+    var id = itemId != null ? '"itemId": $itemId,' : "";
+    String item = '{$id"image": ${_imageBytes.toString()},"note": {"noteId": $noteId}';
+    return jsonDecode(item);
   }
 
 }
