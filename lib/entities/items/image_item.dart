@@ -30,4 +30,10 @@ class ImageItem extends Item {
     );
   }
 
+  @override
+  Map<String, dynamic> toJson() {
+    // TODO: implement toJson
+    throw UnimplementedError();
+  }
+
 }

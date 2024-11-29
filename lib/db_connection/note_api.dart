@@ -16,7 +16,7 @@ class NoteApi {
   static final _uri = "${constants.uri}notes";
 
   static void createNote(Note note) async {
-    http.Response response = await http.post(
+    await http.post(
       Uri.parse(_uri),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(note.toJson()),

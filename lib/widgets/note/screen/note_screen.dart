@@ -76,10 +76,10 @@ class _NoteScreenState extends State<NoteScreen> {
       bottomNavigationBar: NoteBottomNavigationBar(
         functions: {
           0: () => setState(() {
-            note.addItem(HeaderItem(""));
+            note.addItem(HeaderItem("", note.noteId));
           }),
           1: () => setState(() {
-            note.addItem(TextItem(""));
+            note.addItem(TextItem("", note.noteId));
           }),
           2: () =>
             ImageDialogShower().showImageDialog(context, setState, note),

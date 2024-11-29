@@ -4,8 +4,13 @@ import 'package:note_taking_app/widgets/item/header_item_widget.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import 'dart:convert';
+
 class HeaderItem extends TextItem {
-  HeaderItem(super._text);
+  HeaderItem(super._text, super.noteId);
+
+  HeaderItem.withId(int super.itemId, super.text, super.noteId)
+      : super.withId();
 
   @override
   Widget buildWidget() => HeaderItemWidget(item: this);
@@ -26,5 +31,12 @@ class HeaderItem extends TextItem {
           );
         }
     );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    var id = itemId != null ? '"itemId": $itemId,' : "";
+    String item = '{$id"header": $text,"note": {"noteId": $noteId}';
+    return jsonDecode(item);
   }
 }

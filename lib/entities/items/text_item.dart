@@ -4,10 +4,17 @@ import 'package:note_taking_app/widgets/item/text_item_widget.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-class TextItem extends Item {
-  String _text;
+import 'dart:convert';
 
-  TextItem(this._text);
+class TextItem extends Item {
+  int? itemId;
+  String _text;
+  final int noteId;
+
+  TextItem(this._text, this.noteId);
+
+
+  TextItem.withId(this.itemId, this._text, this.noteId);
 
   String get text => _text;
 
@@ -31,5 +38,12 @@ class TextItem extends Item {
         );
       }
     );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    var id = itemId != null ? '"itemId": $itemId,' : "";
+    String item = '{$id"text": $text,"note": {"noteId": $noteId}';
+    return jsonDecode(item);
   }
 }
