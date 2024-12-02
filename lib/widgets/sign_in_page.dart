@@ -43,7 +43,7 @@ class _SignInPageState extends State<SignInPage> {
         widget.message = "Username already exists";
       });
     } else {
-      // TODO clear state
+      // TODO clear state (delete inputs content)
       navigateToHome(id);
     }
   }
@@ -70,6 +70,7 @@ class _SignInPageState extends State<SignInPage> {
             child:Column(
             children: [
               Text(widget.message),
+              const SizedBox(height: 16.0),
               TextField(
                 controller: _usernameController,
                 onChanged: (value) {
@@ -133,6 +134,7 @@ class _SignInPageState extends State<SignInPage> {
                   prefixIcon: const Icon(Icons.password), // Icon inside the TextField
                 ),
               ),
+              const SizedBox(height: 16.0),
               FilledButton(
                 style: FilledButton.styleFrom(
                   backgroundColor: Theme
@@ -141,6 +143,7 @@ class _SignInPageState extends State<SignInPage> {
                 onPressed: () => logIn(),
                 child: const Text("Log in"),
               ),
+              const SizedBox(height: 16.0),
               FilledButton(
                 style: FilledButton.styleFrom(
                     backgroundColor: Theme
