@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/widgets/sign_in_page.dart';
 
-import 'widgets/home_page.dart';
-
 void main() {
   runApp(const MyApp());
 }
