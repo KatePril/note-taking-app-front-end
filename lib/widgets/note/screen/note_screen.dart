@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/db_connection/item_api.dart';
 import 'package:note_taking_app/db_connection/note_api.dart';
 import 'package:note_taking_app/entities/items/header_item.dart';
 import 'package:note_taking_app/entities/items/item.dart';
@@ -12,25 +13,41 @@ import 'package:note_taking_app/widgets/note/screen/note_bottom_navigation_bar.d
 import '../../../entities/note.dart';
 
 class NoteScreen extends StatefulWidget {
-  final Note note;
+  final int id;
   final Function(Function()) homeState;
 
-  const NoteScreen({super.key, required this.note, required this.homeState});
+  const NoteScreen({super.key, required this.id, required this.homeState});
 
   @override
   State<StatefulWidget> createState() => _NoteScreenState();
 }
 
 class _NoteScreenState extends State<NoteScreen> {
-  late Note note;
+  List<Item> items = List.empty(growable: true);
+  Note note = Note("", -1);
   late TextEditingController _titleController;
 
 
   @override
   void initState() {
     super.initState();
-    note = widget.note;
+    _loadNote();
+    _loadItems();
     _titleController = TextEditingController(text: note.title);
+  }
+
+  Future<void> _loadNote() async {
+    note = await NoteApi.getNoteById(widget.id);
+    print("response: $note");
+    setState(() {
+      _titleController.text = note.title;
+    });
+  }
+
+  Future<void> _loadItems() async {
+    items = await ItemApi.getItemsByNote(widget.id);
+    print("response: $items");
+    setState(() {});
   }
 
   @override
@@ -52,6 +69,11 @@ class _NoteScreenState extends State<NoteScreen> {
             FilledButton(
               onPressed: () async {
                 NoteApi.updateNote(note);
+                for (final item in items) {
+                  ItemApi.updateItem(item);
+                }
+                //TODO fix home state
+                widget.homeState(() {});
               },
               child: const Icon(Icons.save_as, size: 24),
             ),
@@ -61,8 +83,7 @@ class _NoteScreenState extends State<NoteScreen> {
                   final file = File("${note.title.replaceAll(' ', '_')}.pdf");
                   await file.writeAsBytes(await note.buildDocument().save());
                 },
-                child: Text(widget.note.noteId.toString()),
-                // child: const Icon(Icons.save_alt, size: 24),
+                child: const Icon(Icons.save_alt, size: 24),
             ),
           ],
         ),
@@ -70,16 +91,18 @@ class _NoteScreenState extends State<NoteScreen> {
       body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
-            children: note.items.map((Item item) => item.buildWidget()).toList(),
+            children: items.map((Item item) => item.buildWidget()).toList(),
           ),
         ),
       bottomNavigationBar: NoteBottomNavigationBar(
         functions: {
           0: () => setState(() {
-            note.addItem(HeaderItem("", note.noteId));
+            ItemApi.createItem(HeaderItem("", note.noteId));
+            _loadItems();
           }),
           1: () => setState(() {
-            note.addItem(TextItem("", note.noteId));
+            ItemApi.createItem(TextItem("", note.noteId));
+            _loadItems();
           }),
           2: () =>
             ImageDialogShower().showImageDialog(context, setState, note),

@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.push(
                   context, MaterialPageRoute(
                   builder: (context) => NoteScreen(
-                     note: notes[index],
+                    id: notes[index].noteId,
                     homeState: setState,
                   )
                 )

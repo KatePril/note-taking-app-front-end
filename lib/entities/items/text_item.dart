@@ -43,7 +43,7 @@ class TextItem extends Item {
   @override
   Map<String, dynamic> toJson() {
     var id = itemId != null ? '"itemId": $itemId,' : "";
-    String item = '{$id"text": $text,"note": {"noteId": $noteId}';
+    String item = '{$id"text": "$text","note": {"noteId": $noteId}}';
     return jsonDecode(item);
   }
 

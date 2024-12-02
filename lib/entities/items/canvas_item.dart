@@ -50,7 +50,7 @@ class CanvasItem extends Item {
   Map<String, dynamic> toJson() {
     var id = itemId != null ? '"itemId": $itemId,' : "";
     var pointsParsed = OffsetsParser.parseOffsets(points);
-    String item = '{$id"canvas": "${_imageBytes.toString()}", "offsets": "$pointsParsed", "note": {"noteId": $noteId}';
+    String item = '{$id"canvas": "${_imageBytes.toString()}", "offsets": "$pointsParsed", "note": {"noteId": $noteId}}';
     return jsonDecode(item);
   }
 
