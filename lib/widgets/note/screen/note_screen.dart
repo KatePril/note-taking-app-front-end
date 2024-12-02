@@ -14,7 +14,7 @@ import '../../../entities/note.dart';
 
 class NoteScreen extends StatefulWidget {
   final int id;
-  final Function(Function()) homeState;
+  final Function() homeState;
 
   const NoteScreen({super.key, required this.id, required this.homeState});
 
@@ -63,7 +63,7 @@ class _NoteScreenState extends State<NoteScreen> {
             Expanded(
               child: TextField(
                 controller: _titleController,
-                onChanged: (value) => widget.homeState(() => note.title = value),
+                onChanged: (value) => note.title = value,
               ),
             ),
             FilledButton(
@@ -72,8 +72,7 @@ class _NoteScreenState extends State<NoteScreen> {
                 for (final item in items) {
                   ItemApi.updateItem(item);
                 }
-                //TODO fix home state
-                widget.homeState(() {});
+                widget.homeState();
               },
               child: const Icon(Icons.save_as, size: 24),
             ),
