@@ -49,6 +49,7 @@ class Note {
       )
     );
 
+    // TODO fix pdf
     for (final Item item in items) {
       pdf.addPage(item.buildPdf());
     }
