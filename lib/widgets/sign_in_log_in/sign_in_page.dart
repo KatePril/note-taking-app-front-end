@@ -44,7 +44,11 @@ class _SignInPageState extends State<SignInPage> {
         widget.message = "Username already exists";
       });
     } else {
-      // TODO clear state (delete inputs content)
+      setState(() {
+        _usernameController.text = "";
+        _passwordController.text = "";
+        widget.user = User.newUser("", "");
+      });
       navigateToHome(id);
     }
   }
@@ -56,7 +60,11 @@ class _SignInPageState extends State<SignInPage> {
         widget.message = "Incorrect username or password";
       });
     } else {
-      // TODO clear state
+      setState(() {
+        _usernameController.text = "";
+        _passwordController.text = "";
+        widget.user = User.newUser("", "");
+      });
       navigateToHome(id);
     }
   }
