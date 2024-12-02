@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/db_connection/item_api.dart';
 import 'package:note_taking_app/entities/items/image_item.dart';
 import 'package:note_taking_app/entities/note.dart';
 import 'package:note_taking_app/widgets/item/imageItem/image_input/image_input.dart';
@@ -28,7 +29,8 @@ class ImageDialogShower {
             onPressed: () {
               Navigator.pop(context, 'Save');
               setState(() {
-                note.addItem(ImageItem(image, note.noteId));
+                ItemApi.createItem(ImageItem(image, note.noteId));
+                // note.addItem(ImageItem(image, note.noteId));
               });
             },
             child: const Text('Save'),
