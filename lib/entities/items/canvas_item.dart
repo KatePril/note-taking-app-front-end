@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/entities/items/item.dart';
+import 'package:note_taking_app/entities/items/utils/offsets_parser.dart';
 import 'package:note_taking_app/widgets/item/canvasItem/canvas_item_widget.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -44,14 +45,8 @@ class CanvasItem extends Item {
   @override
   Map<String, dynamic> toJson() {
     var id = itemId != null ? '"itemId": $itemId,' : "";
-    var pointsParsed = '[${points.map((offset) {
-      if (offset != null) {
-        return '(${offset.dx}, ${offset.dy})';
-      } else {
-        return '(null, null)';
-      }
-    }).join(', ')}]';
-    String item = '{$id"canvas": ${_imageBytes.toString()}, "offsets": $pointsParsed, "note": {"noteId": $noteId}';
+    var pointsParsed = OffsetsParser.parseOffsets(points);
+    String item = '{$id"canvas": "${_imageBytes.toString()}", "offsets": "$pointsParsed", "note": {"noteId": $noteId}';
     return jsonDecode(item);
   }
 

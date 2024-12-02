@@ -39,7 +39,7 @@ class ImageItem extends Item {
   @override
   Map<String, dynamic> toJson() {
     var id = itemId != null ? '"itemId": $itemId,' : "";
-    String item = '{$id"image": ${_imageBytes.toString()},"note": {"noteId": $noteId}';
+    String item = '{$id"image": "${_imageBytes.toString()}","note": {"noteId": $noteId}';
     return jsonDecode(item);
   }
 

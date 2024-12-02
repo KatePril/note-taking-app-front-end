@@ -30,7 +30,7 @@ class CanvasDialogShower {
                     Navigator.pop(context, 'Save');
                     setState(() {
                       note?.addItem(
-                          CanvasItem(image)
+                          CanvasItem(image, note.noteId)
                               ..points = points
                       );
                       item?.imageBytes = image;

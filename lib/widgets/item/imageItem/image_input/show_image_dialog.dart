@@ -28,7 +28,7 @@ class ImageDialogShower {
             onPressed: () {
               Navigator.pop(context, 'Save');
               setState(() {
-                note.addItem(ImageItem(image));
+                note.addItem(ImageItem(image, note.noteId));
               });
             },
             child: const Text('Save'),
