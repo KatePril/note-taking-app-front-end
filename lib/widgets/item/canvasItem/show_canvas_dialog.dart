@@ -1,6 +1,7 @@
   import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/db_connection/item_api.dart';
 import 'package:note_taking_app/entities/items/canvas_item.dart';
 import 'package:note_taking_app/entities/note.dart';
 import 'package:note_taking_app/widgets/item/canvasItem/canvas/canvas.dart';
@@ -29,12 +30,17 @@ class CanvasDialogShower {
                   onPressed: () {
                     Navigator.pop(context, 'Save');
                     setState(() {
-                      note?.addItem(
+                      if (note != null) {
+                        ItemApi.createItem(
                           CanvasItem(image, note.noteId)
-                              ..points = points
-                      );
-                      item?.imageBytes = image;
-                      item?.points = points;
+                            ..points = points
+                        );
+                      }
+                      if (item != null) {
+                        item.imageBytes = image;
+                        item.points = points;
+                        ItemApi.updateItem(item);
+                      }
                     });
                   },
                   child: const Text('Save', style: TextStyle(color: Colors.white)),

@@ -109,7 +109,10 @@ class _NoteScreenState extends State<NoteScreen> {
               _loadItems();
             }), note),
           3: () =>
-            CanvasDialogShower().showCanvasDialog(context, setState, note: note),
+            CanvasDialogShower().showCanvasDialog(context, (action) => setState(() {
+              action();
+              _loadItems();
+            }), note: note),
         }
       )
     );
