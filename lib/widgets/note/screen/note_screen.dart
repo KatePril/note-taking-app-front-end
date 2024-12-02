@@ -38,7 +38,6 @@ class _NoteScreenState extends State<NoteScreen> {
 
   Future<void> _loadNote() async {
     note = await NoteApi.getNoteById(widget.id);
-    print("response: $note");
     setState(() {
       _titleController.text = note.title;
     });
@@ -46,7 +45,6 @@ class _NoteScreenState extends State<NoteScreen> {
 
   Future<void> _loadItems() async {
     items = await ItemApi.getItemsByNote(widget.id);
-    print("response: $items");
     setState(() {});
   }
 

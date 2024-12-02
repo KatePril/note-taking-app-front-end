@@ -30,7 +30,6 @@ class ImageDialogShower {
               Navigator.pop(context, 'Save');
               setState(() {
                 ItemApi.createItem(ImageItem(image, note.noteId));
-                // note.addItem(ImageItem(image, note.noteId));
               });
             },
             child: const Text('Save'),
