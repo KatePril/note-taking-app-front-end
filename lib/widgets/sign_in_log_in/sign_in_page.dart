@@ -32,7 +32,7 @@ class _SignInPageState extends State<SignInPage> {
       builder: (context) => MyHomePage(
           title: 'Note Taker',
           id: id
-      )
+        )
       )
     );
   }

@@ -1,3 +1,4 @@
+import 'package:note_taking_app/db_connection/item_api.dart';
 import 'package:note_taking_app/entities/items/item.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -29,7 +30,7 @@ class Note {
 
   void addItem(Item item) => _items.add(item);
 
-  pw.Document buildDocument() {
+  Future<pw.Document> buildDocument() async {
     final pdf = pw.Document();
 
     pdf.addPage(
@@ -49,7 +50,7 @@ class Note {
       )
     );
 
-    // TODO fix pdf
+    List<Item> items = await ItemApi.getItemsByNote(noteId);
     for (final Item item in items) {
       pdf.addPage(item.buildPdf());
     }

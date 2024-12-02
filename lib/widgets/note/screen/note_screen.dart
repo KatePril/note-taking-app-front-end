@@ -9,6 +9,7 @@ import 'package:note_taking_app/entities/items/text_item.dart';
 import 'package:note_taking_app/widgets/item/canvasItem/show_canvas_dialog.dart';
 import 'package:note_taking_app/widgets/item/imageItem/image_input/show_image_dialog.dart';
 import 'package:note_taking_app/widgets/note/screen/note_bottom_navigation_bar.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 import '../../../entities/note.dart';
 
@@ -74,11 +75,12 @@ class _NoteScreenState extends State<NoteScreen> {
               },
               child: const Icon(Icons.save_as, size: 24),
             ),
-            const SizedBox(width: 12,),
+            const SizedBox(width: 12),
             FilledButton(
                 onPressed: () async {
                   final file = File("${note.title.replaceAll(' ', '_')}.pdf");
-                  await file.writeAsBytes(await note.buildDocument().save());
+                  pw.Document document = await note.buildDocument();
+                  await file.writeAsBytes(await document.save());
                 },
                 child: const Icon(Icons.save_alt, size: 24),
             ),
