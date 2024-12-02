@@ -26,6 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _loadNotes() async {
     notes = await NoteApi.getNotesByUser(widget.id);
     setState(() {});
+    // TODO delete prints
     for (final Note note in notes) {
       print("${note.noteId} : ${note.title}");
     }

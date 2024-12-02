@@ -45,4 +45,11 @@ class NoteApi {
     }
     return notes;
   }
+
+  static Future<Note> getNoteById(int id) async {
+    http.Response response = await http.get(
+      Uri.parse("$_uri/note/$id"),
+    );
+    return Note.fromJson(jsonDecode(response.body));
+  }
 }
