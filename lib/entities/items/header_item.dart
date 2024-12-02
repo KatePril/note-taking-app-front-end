@@ -39,4 +39,11 @@ class HeaderItem extends TextItem {
     String item = '{$id"header": $text,"note": {"noteId": $noteId}';
     return jsonDecode(item);
   }
+
+  static HeaderItem fromJson(Map<String, dynamic> item) {
+    var itemId = item["itemId"];
+    var header = item["header"];
+    var noteId = item["note"]["noteId"];
+    return HeaderItem.withId(itemId, header, noteId);
+  }
 }

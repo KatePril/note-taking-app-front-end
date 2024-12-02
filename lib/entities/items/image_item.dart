@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/entities/items/item.dart';
+import 'package:note_taking_app/entities/items/utils/bytes_parser.dart';
 import 'package:note_taking_app/widgets/item/imageItem/image_item_widget.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -41,6 +42,13 @@ class ImageItem extends Item {
     var id = itemId != null ? '"itemId": $itemId,' : "";
     String item = '{$id"image": "${_imageBytes.toString()}","note": {"noteId": $noteId}';
     return jsonDecode(item);
+  }
+
+  static ImageItem fromJson(Map<String, dynamic> item) {
+    var itemId = item["itemId"];
+    var image = BytesParser.parseString(item["image"]);
+    var noteId = item["note"]["noteId"];
+    return ImageItem.withId(itemId, image, noteId);
   }
 
 }
