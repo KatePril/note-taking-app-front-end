@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/db_connection/item_api.dart';
 import 'package:note_taking_app/entities/items/canvas_item.dart';
 import 'package:note_taking_app/widgets/item/canvasItem/show_canvas_dialog.dart';
-import 'package:note_taking_app/widgets/item/delete_item_button.dart';
+import 'package:note_taking_app/widgets/delete_button.dart';
 
 class CanvasItemWidget extends StatefulWidget {
   final CanvasItem item;
@@ -30,7 +31,13 @@ class _CanvasItemWidgetState extends State<CanvasItemWidget> {
             ),
           ),
           const SizedBox(height: 10),
-          DeleteItemButton(itemId: widget.item.itemId, loadItems: widget.loadItems),
+          DeleteButton(
+            onPressed: () async {
+              await ItemApi.deleteItemById(widget.item.itemId);
+              widget.loadItems();
+            },
+            width: double.infinity,
+          ),
         ],
       ),
     );

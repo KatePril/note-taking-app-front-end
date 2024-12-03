@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/db_connection/item_api.dart';
 import 'package:note_taking_app/entities/items/image_item.dart';
-import 'package:note_taking_app/widgets/item/delete_item_button.dart';
+import 'package:note_taking_app/widgets/delete_button.dart';
 
 class ImageItemWidget extends StatefulWidget {
   final ImageItem item;
@@ -27,7 +28,13 @@ class _ImageItemWidgetState extends State<ImageItemWidget> {
           children: [
             Image.memory(widget.item.imageBytes, fit: BoxFit.fitWidth),
             const SizedBox(height: 10),
-            DeleteItemButton(itemId: widget.item.itemId, loadItems: widget.loadItems),
+            DeleteButton(
+              onPressed: () async {
+                await ItemApi.deleteItemById(widget.item.itemId);
+                widget.loadItems();
+              },
+              width: double.infinity,
+            ),
           ],
         ),
       ),

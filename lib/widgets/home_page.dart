@@ -47,7 +47,10 @@ class _MyHomePageState extends State<MyHomePage> {
         itemCount: notes.length,
         itemBuilder: (context, index) {
           return ListTile(
-            title: NoteWidget(notes[index].title),
+            title: NoteWidget(
+              note: notes[index],
+              loadNotes: _loadNotes,
+            ),
             onTap: () {
               Navigator.push(
                   context, MaterialPageRoute(

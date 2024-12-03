@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/db_connection/note_api.dart';
+import 'package:note_taking_app/entities/note.dart';
+import 'package:note_taking_app/widgets/delete_button.dart';
 
 class NoteWidget extends StatelessWidget {
-  String title;
+  final Note note;
+  final Function loadNotes;
 
-  NoteWidget(this.title, {super.key});
+  const NoteWidget({required this.note, required this.loadNotes, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,17 +16,32 @@ class NoteWidget extends StatelessWidget {
           .of(context)
           .colorScheme
           .primary,
-      child: SizedBox(
-        height: 50,
-        child: Center(
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 18, // Change the font size here
-              fontWeight: FontWeight.bold, // Make the text bold
-              color: Colors.white, // Change text color if needed
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            SizedBox(
+              height: 50,
+              child: Center(
+                child: Text(
+                  note.title,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ),
-          )
+            const Spacer(),
+            DeleteButton(
+              onPressed: () async {
+                await NoteApi.deleteNoteById(note.noteId);
+                loadNotes();
+              },
+              width: null,
+            ),
+          ],
         ),
       ),
     );

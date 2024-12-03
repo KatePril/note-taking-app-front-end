@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/db_connection/item_api.dart';
 import 'package:note_taking_app/entities/items/header_item.dart';
-import 'package:note_taking_app/widgets/item/delete_item_button.dart';
+import 'package:note_taking_app/widgets/delete_button.dart';
 
 class HeaderItemWidget extends StatefulWidget {
   final HeaderItem item;
@@ -44,7 +45,13 @@ class _HeaderItemWidgetState extends State<HeaderItemWidget> {
               ),
             ),
             const SizedBox(height: 10),
-            DeleteItemButton(itemId: item.itemId, loadItems: widget.loadItems),
+            DeleteButton(
+              onPressed: () async {
+                await ItemApi.deleteItemById(widget.item.itemId);
+                widget.loadItems();
+              },
+              width: double.infinity,
+            ),
           ],
         ),
       ),

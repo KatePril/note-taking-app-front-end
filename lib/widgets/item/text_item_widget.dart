@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/db_connection/item_api.dart';
 import 'package:note_taking_app/entities/items/text_item.dart';
-import 'package:note_taking_app/widgets/item/delete_item_button.dart';
+import 'package:note_taking_app/widgets/delete_button.dart';
 
 class TextItemWidget extends StatefulWidget {
   final TextItem item;
@@ -40,7 +41,13 @@ class _TextItemWidgetState extends State<TextItemWidget> {
               maxLines: null,
             ),
             const SizedBox(height: 10),
-            DeleteItemButton(itemId: item.itemId, loadItems: widget.loadItems),
+            DeleteButton(
+              onPressed: () async {
+                await ItemApi.deleteItemById(widget.item.itemId);
+                widget.loadItems();
+              },
+              width: double.infinity,
+            ),
           ],
         )
       ),
