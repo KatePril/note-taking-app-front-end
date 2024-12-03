@@ -15,17 +15,17 @@ class NoteApi {
 
   static final _uri = "${constants.uri}notes";
 
-  static void createNote(Note note) async {
-    await http.post(
+  static Future<String> createNote(Note note) async {
+    http.Response response = await http.post(
       Uri.parse(_uri),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(note.toJson()),
     );
+
+    return response.body;
   }
 
   static Future<Note> updateNote(Note note) async {
-    print(note);
-    print(jsonEncode(note.toJson()));
     http.Response response = await http.put(
       Uri.parse(_uri),
       headers: {'Content-Type': 'application/json'},

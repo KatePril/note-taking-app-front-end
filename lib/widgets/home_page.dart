@@ -28,10 +28,10 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
-  void _addNote() => setState(() {
-      notes.add(Note("New note", widget.id));
-      NoteApi.createNote(Note("New note", widget.id));
-    });
+  Future<void> _addNote() async {
+    await NoteApi.createNote(Note("New note", widget.id));
+    _loadNotes();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   context, MaterialPageRoute(
                   builder: (context) => NoteScreen(
                     id: notes[index].noteId,
-                    homeState: () {
-                      _loadNotes();
-                      setState(() {});
-                    },
+                    homeState: () => _loadNotes(),
                   )
                 )
               );
