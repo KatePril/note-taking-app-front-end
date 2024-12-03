@@ -9,7 +9,6 @@ class Note implements Jsonable {
   int? _noteId;
   String title;
   final int _userId;
-  final List<Item> _items = List.empty(growable: true);
 
   Note(this.title, this._userId);
   Note.withId(this._noteId, this.title, this._userId);
@@ -22,10 +21,6 @@ class Note implements Jsonable {
   }
 
   int get noteId => _noteId ?? -1;
-
-  List<Item> get items => _items;
-
-  void addItem(Item item) => _items.add(item);
 
   Future<pw.Document> buildDocument() async {
     final pdf = pw.Document();

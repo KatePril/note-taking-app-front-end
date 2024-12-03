@@ -12,20 +12,14 @@ import 'dart:convert';
 
 class CanvasItem implements Item {
   int? itemId;
-  Uint8List _imageBytes;
+  Uint8List imageBytes;
   List<Offset?> points = [];
   final int noteId;
 
-  CanvasItem(this._imageBytes, this.noteId);
+  CanvasItem(this.imageBytes, this.noteId);
 
 
-  CanvasItem.withId(this.itemId, this._imageBytes, this.points, this.noteId);
-
-  Uint8List get imageBytes => _imageBytes;
-
-  set imageBytes(Uint8List value) {
-    _imageBytes = value;
-  }
+  CanvasItem.withId(this.itemId, this.imageBytes, this.points, this.noteId);
 
   @override
   Widget buildWidget() {
@@ -39,7 +33,7 @@ class CanvasItem implements Item {
       build: (pw.Context context) {
         return pw.Center(
           child: pw.Image(
-            pw.MemoryImage(_imageBytes)
+            pw.MemoryImage(imageBytes)
           ),
         );
       }
@@ -50,7 +44,7 @@ class CanvasItem implements Item {
   Map<String, dynamic> toJson() {
     var id = itemId != null ? '"itemId": $itemId,' : "";
     var pointsParsed = OffsetsParser.parseOffsets(points);
-    String item = '{$id"canvas": "${_imageBytes.toString()}", "offsets": "$pointsParsed", "note": {"noteId": $noteId}}';
+    String item = '{$id"canvas": "${imageBytes.toString()}", "offsets": "$pointsParsed", "note": {"noteId": $noteId}}';
     return jsonDecode(item);
   }
 
