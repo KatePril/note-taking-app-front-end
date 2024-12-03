@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/db_connection/item_api.dart';
 import 'package:note_taking_app/entities/items/canvas_item.dart';
-import 'package:note_taking_app/entities/note.dart';
 import 'package:note_taking_app/widgets/item/canvasItem/canvas/canvas.dart';
 
 class CanvasDialogShower {
@@ -13,7 +12,7 @@ class CanvasDialogShower {
 
   factory CanvasDialogShower() => _instance;
 
-  void showCanvasDialog(BuildContext context, Function() loadItems, {Note? note, CanvasItem? item}) {
+  void showCanvasDialog(BuildContext context, Function() loadItems, {int? noteId, CanvasItem? item}) {
     late Uint8List image;
     late List<Offset?> points;
     showDialog<String>(
@@ -29,9 +28,9 @@ class CanvasDialogShower {
                 FilledButton(
                   onPressed: () async {
                     Navigator.pop(context, 'Save');
-                    if (note != null) {
+                    if (noteId != null) {
                       await ItemApi.createItem(
-                          CanvasItem(image, note.noteId)
+                          CanvasItem(image, noteId)
                             ..points = points
                       );
                     }

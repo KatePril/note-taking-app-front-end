@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/db_connection/item_api.dart';
 import 'package:note_taking_app/entities/items/image_item.dart';
-import 'package:note_taking_app/entities/note.dart';
 import 'package:note_taking_app/widgets/item/imageItem/image_input/image_input.dart';
 
 class ImageDialogShower {
@@ -13,7 +12,7 @@ class ImageDialogShower {
 
   factory ImageDialogShower() => _instance;
 
-  void showImageDialog(BuildContext context, Function() loadItems, Note note) {
+  void showImageDialog(BuildContext context, Function() loadItems, int noteId) {
     late Uint8List image;
     showDialog<String>(
       context: context,
@@ -28,7 +27,7 @@ class ImageDialogShower {
           TextButton(
             onPressed: () async {
               Navigator.pop(context, 'Save');
-              await ItemApi.createItem(ImageItem(image, note.noteId));
+              await ItemApi.createItem(ImageItem(image, noteId));
               loadItems();
             },
             child: const Text('Save'),
