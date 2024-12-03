@@ -23,7 +23,7 @@ class ItemFactory {
     } else if (item["canvas"] != null && item["offsets"] != null) {
       return CanvasItem.fromJson(item);
     } else {
-      throw Exception();
+      throw Exception("Unknown type of item");
     }
   }
 

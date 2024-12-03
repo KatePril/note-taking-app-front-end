@@ -10,7 +10,7 @@ import 'package:pdf/widgets.dart' as pw;
 
 import 'dart:convert';
 
-class CanvasItem extends Item {
+class CanvasItem implements Item {
   int? itemId;
   Uint8List _imageBytes;
   List<Offset?> points = [];

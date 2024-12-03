@@ -6,7 +6,7 @@ import 'package:pdf/widgets.dart' as pw;
 
 import 'dart:convert';
 
-class TextItem extends Item {
+class TextItem implements Item {
   int? itemId;
   String _text;
   final int noteId;

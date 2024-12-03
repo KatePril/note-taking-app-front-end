@@ -9,7 +9,7 @@ import 'package:pdf/widgets.dart' as pw;
 
 import 'dart:convert';
 
-class ImageItem extends Item {
+class ImageItem implements Item {
   int? itemId;
   final Uint8List _imageBytes;
   final int noteId;

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:note_taking_app/entities/jsonable.dart';
 import 'package:pdf/widgets.dart' as pw show Page;
 
-abstract class Item {
+abstract class Item implements Jsonable {
   Widget buildWidget();
   pw.Page buildPdf();
-  Map<String, dynamic> toJson();
 }
