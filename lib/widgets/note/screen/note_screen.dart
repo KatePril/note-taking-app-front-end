@@ -67,9 +67,9 @@ class _NoteScreenState extends State<NoteScreen> {
             ),
             FilledButton(
               onPressed: () async {
-                NoteApi.updateNote(note);
+                await NoteApi.updateNote(note);
                 for (final item in items) {
-                  ItemApi.updateItem(item);
+                  await ItemApi.updateItem(item);
                 }
                 widget.homeState();
               },
@@ -95,25 +95,18 @@ class _NoteScreenState extends State<NoteScreen> {
         ),
       bottomNavigationBar: NoteBottomNavigationBar(
         functions: {
-          0: () => setState(() {
-            ItemApi.createItem(HeaderItem("", note.noteId));
+          0: () async {
+            await ItemApi.createItem(HeaderItem("", note.noteId));
             _loadItems();
-          }),
-          1: () => setState(() {
+          },
+          1: () async {
             ItemApi.createItem(TextItem("", note.noteId));
             _loadItems();
-          }),
+          },
           2: () =>
-            ImageDialogShower().showImageDialog(context, (action) => setState(() {
-              action();
-              _loadItems();
-              // TODO make sure items are loaded
-            }), note),
+            ImageDialogShower().showImageDialog(context, _loadItems, note),
           3: () =>
-            CanvasDialogShower().showCanvasDialog(context, (action) => setState(() {
-              action();
-              _loadItems();
-            }), note: note),
+            CanvasDialogShower().showCanvasDialog(context, _loadItems, note: note),
         }
       )
     );

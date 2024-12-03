@@ -18,7 +18,7 @@ class _CanvasItemWidgetState extends State<CanvasItemWidget> {
     return Card(
       child: InkWell(
         onTap: () {
-          CanvasDialogShower().showCanvasDialog(context, setState, item: widget.item);
+          CanvasDialogShower().showCanvasDialog(context, () => setState(() {}), item: widget.item);
         },
         child: Padding(
           padding: const EdgeInsets.all(16.0),

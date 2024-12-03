@@ -13,7 +13,7 @@ class ImageDialogShower {
 
   factory ImageDialogShower() => _instance;
 
-  void showImageDialog(BuildContext context, Function(Function()) setState, Note note) {
+  void showImageDialog(BuildContext context, Function() loadItems, Note note) {
     late Uint8List image;
     showDialog<String>(
       context: context,
@@ -26,11 +26,10 @@ class ImageDialogShower {
             child: const Text('Cancel'),
           ),
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               Navigator.pop(context, 'Save');
-              setState(() {
-                ItemApi.createItem(ImageItem(image, note.noteId));
-              });
+              await ItemApi.createItem(ImageItem(image, note.noteId));
+              loadItems();
             },
             child: const Text('Save'),
           ),

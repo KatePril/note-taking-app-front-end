@@ -13,7 +13,7 @@ class CanvasDialogShower {
 
   factory CanvasDialogShower() => _instance;
 
-  void showCanvasDialog(BuildContext context, Function(Function()) setState, {Note? note, CanvasItem? item}) {
+  void showCanvasDialog(BuildContext context, Function() loadItems, {Note? note, CanvasItem? item}) {
     late Uint8List image;
     late List<Offset?> points;
     showDialog<String>(
@@ -27,21 +27,20 @@ class CanvasDialogShower {
               title: const Text('Draw your note'),
               actions: [
                 FilledButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.pop(context, 'Save');
-                    setState(() {
-                      if (note != null) {
-                        ItemApi.createItem(
+                    if (note != null) {
+                      await ItemApi.createItem(
                           CanvasItem(image, note.noteId)
                             ..points = points
-                        );
-                      }
-                      if (item != null) {
-                        item.imageBytes = image;
-                        item.points = points;
-                        ItemApi.updateItem(item);
-                      }
-                    });
+                      );
+                    }
+                    if (item != null) {
+                      item.imageBytes = image;
+                      item.points = points;
+                      ItemApi.updateItem(item);
+                    }
+                    loadItems();
                   },
                   child: const Text('Save', style: TextStyle(color: Colors.white)),
                 ),

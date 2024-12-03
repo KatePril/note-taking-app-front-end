@@ -16,20 +16,24 @@ class ItemApi {
 
   static final _uri = "${constants.uri}items";
 
-  static void createItem(Item item) async {
-    await http.post(
+  static Future<String> createItem(Item item) async {
+    http.Response response = await http.post(
       Uri.parse(_uri),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(item.toJson()),
     );
+
+    return response.body;
   }
 
-  static void updateItem(Item item) async {
-    await http.put(
+  static Future<String>  updateItem(Item item) async {
+    http.Response response = await http.put(
       Uri.parse(_uri),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(item.toJson()),
     );
+
+    return response.body;
   }
 
   static Future<List<Item>> getItemsByNote(int id) async {

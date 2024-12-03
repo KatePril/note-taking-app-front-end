@@ -53,7 +53,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   context, MaterialPageRoute(
                   builder: (context) => NoteScreen(
                     id: notes[index].noteId,
-                    homeState: () => setState(() => _loadNotes()),
+                    homeState: () {
+                      _loadNotes();
+                      setState(() {});
+                    },
                   )
                 )
               );
