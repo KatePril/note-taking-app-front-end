@@ -18,7 +18,8 @@ class TextItem implements Item {
   int get itemId => _itemId ?? -1;
 
   @override
-  Widget buildWidget() => TextItemWidget(item: this);
+  Widget buildWidget(Function loadItems) =>
+      TextItemWidget(item: this, loadItems: loadItems);
 
   @override
   pw.Page buildPdf() {

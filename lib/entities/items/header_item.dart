@@ -13,7 +13,8 @@ class HeaderItem extends TextItem {
       : super.withId();
 
   @override
-  Widget buildWidget() => HeaderItemWidget(item: this);
+  Widget buildWidget(Function loadItems) =>
+      HeaderItemWidget(item: this, loadItems: loadItems);
 
   @override
   pw.Page buildPdf() {

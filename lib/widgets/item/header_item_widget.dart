@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:note_taking_app/db_connection/item_api.dart';
 import 'package:note_taking_app/entities/items/header_item.dart';
+import 'package:note_taking_app/widgets/item/delete_item_button.dart';
 
 class HeaderItemWidget extends StatefulWidget {
   final HeaderItem item;
+  final Function loadItems;
 
-  const HeaderItemWidget({super.key, required this.item});
+  const HeaderItemWidget({super.key, required this.item, required this.loadItems});
 
   @override
   State<StatefulWidget> createState() => _HeaderItemWidgetState();
@@ -43,16 +44,7 @@ class _HeaderItemWidgetState extends State<HeaderItemWidget> {
               ),
             ),
             const SizedBox(height: 10),
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: () => ItemApi.deleteItemById(item.itemId),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.error),
-                ),
-                child: const Icon(Icons.delete, size: 24),
-              ),
-            ),
+            DeleteItemButton(itemId: item.itemId, loadItems: widget.loadItems),
           ],
         ),
       ),

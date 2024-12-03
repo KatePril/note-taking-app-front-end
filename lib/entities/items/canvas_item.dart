@@ -23,9 +23,8 @@ class CanvasItem implements Item {
   CanvasItem.withId(this._itemId, this.imageBytes, this.points, this._noteId);
 
   @override
-  Widget buildWidget() {
-    return CanvasItemWidget(item: this);
-  }
+  Widget buildWidget(Function loadItems) =>
+      CanvasItemWidget(item: this, loadItems: loadItems);
 
   @override
   pw.Page buildPdf() {

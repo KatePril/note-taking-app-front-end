@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:note_taking_app/db_connection/item_api.dart';
 import 'package:note_taking_app/entities/items/image_item.dart';
+import 'package:note_taking_app/widgets/item/delete_item_button.dart';
 
 class ImageItemWidget extends StatefulWidget {
   final ImageItem item;
+  final Function loadItems;
 
-  const ImageItemWidget({super.key, required this.item});
+  const ImageItemWidget({super.key, required this.item, required this.loadItems});
 
   @override
   State<StatefulWidget> createState() => _ImageItemWidgetState();
@@ -26,16 +27,7 @@ class _ImageItemWidgetState extends State<ImageItemWidget> {
           children: [
             Image.memory(widget.item.imageBytes, fit: BoxFit.fitWidth),
             const SizedBox(height: 10),
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: () => ItemApi.deleteItemById(widget.item.itemId),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.error),
-                ),
-                child: const Icon(Icons.delete, size: 24),
-              ),
-            ),
+            DeleteItemButton(itemId: widget.item.itemId, loadItems: widget.loadItems),
           ],
         ),
       ),

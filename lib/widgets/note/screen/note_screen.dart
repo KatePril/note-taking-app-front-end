@@ -90,7 +90,8 @@ class _NoteScreenState extends State<NoteScreen> {
       body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
-            children: items.map((Item item) => item.buildWidget()).toList(),
+            children: items.map((Item item) =>
+                item.buildWidget(_loadItems)).toList(),
           ),
         ),
       bottomNavigationBar: NoteBottomNavigationBar(

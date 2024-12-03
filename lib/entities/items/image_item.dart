@@ -23,9 +23,8 @@ class ImageItem implements Item {
   int get itemId => _itemId ?? -1;
 
   @override
-  Widget buildWidget() {
-    return ImageItemWidget(item: this);
-  }
+  Widget buildWidget(Function loadItems) =>
+      ImageItemWidget(item: this, loadItems: loadItems);
 
   @override
   pw.Page buildPdf() {

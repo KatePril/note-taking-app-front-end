@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:note_taking_app/db_connection/item_api.dart';
 import 'package:note_taking_app/entities/items/canvas_item.dart';
 import 'package:note_taking_app/widgets/item/canvasItem/show_canvas_dialog.dart';
+import 'package:note_taking_app/widgets/item/delete_item_button.dart';
 
 class CanvasItemWidget extends StatefulWidget {
   final CanvasItem item;
+  final Function loadItems;
 
-  const CanvasItemWidget({super.key, required this.item});
+  const CanvasItemWidget({super.key, required this.item, required this.loadItems});
 
   @override
   State<StatefulWidget> createState() => _CanvasItemWidgetState();
@@ -29,16 +30,7 @@ class _CanvasItemWidgetState extends State<CanvasItemWidget> {
             ),
           ),
           const SizedBox(height: 10),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: () => ItemApi.deleteItemById(widget.item.itemId),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.error),
-              ),
-              child: const Icon(Icons.delete, size: 24),
-            ),
-          ),
+          DeleteItemButton(itemId: widget.item.itemId, loadItems: widget.loadItems),
         ],
       ),
     );
