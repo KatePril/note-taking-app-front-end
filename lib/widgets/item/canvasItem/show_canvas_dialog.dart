@@ -1,4 +1,4 @@
-  import 'dart:typed_data';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/db_connection/item_api.dart';

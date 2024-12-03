@@ -21,7 +21,7 @@ class _ImageItemWidgetState extends State<ImageItemWidget> {
           .inversePrimary,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Image.memory(widget.item.imageBytes, fit: BoxFit.fitWidth,),
+        child: Image.memory(widget.item.imageBytes, fit: BoxFit.fitWidth),
       ),
     );
   }

@@ -37,7 +37,6 @@ class _HeaderItemWidgetState extends State<HeaderItemWidget> {
           style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold
-            // Change this to your desired text color
           ),
         ),
       ),
