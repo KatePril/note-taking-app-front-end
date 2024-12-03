@@ -20,9 +20,9 @@ class _CanvasItemWidgetState extends State<CanvasItemWidget> {
       child: Column(
         children: [
           InkWell(
-            onTap: () {
-              CanvasDialogShower().showCanvasDialog(context, () => setState(() {}), item: widget.item);
-            },
+            onTap: () =>
+              CanvasDialogShower()
+                  .showCanvasDialog(context, () => setState(() {}), item: widget.item),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Image.memory(widget.item.imageBytes, fit: BoxFit.fitWidth,),
@@ -30,7 +30,7 @@ class _CanvasItemWidgetState extends State<CanvasItemWidget> {
           ),
           const SizedBox(height: 10),
           SizedBox(
-            width: double.infinity, // Makes the button fill the available width
+            width: double.infinity,
             child: FilledButton(
               onPressed: () => ItemApi.deleteItemById(widget.item.itemId),
               style: ButtonStyle(

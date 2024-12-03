@@ -40,9 +40,9 @@ class _TextItemWidgetState extends State<TextItemWidget> {
             ),
             const SizedBox(height: 10),
             SizedBox(
-              width: double.infinity, // Makes the button fill the available width
+              width: double.infinity,
               child: FilledButton(
-                onPressed: () => ItemApi.deleteItemById(item.itemId ?? -1),
+                onPressed: () => ItemApi.deleteItemById(item.itemId),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.error),
                 ),

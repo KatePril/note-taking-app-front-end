@@ -7,13 +7,15 @@ import 'package:pdf/widgets.dart' as pw;
 import 'dart:convert';
 
 class TextItem implements Item {
-  int? itemId;
+  int? _itemId;
   String text;
   final int noteId;
 
   TextItem(this.text, this.noteId);
 
-  TextItem.withId(this.itemId, this.text, this.noteId);
+  TextItem.withId(this._itemId, this.text, this.noteId);
+
+  int get itemId => _itemId ?? -1;
 
   @override
   Widget buildWidget() => TextItemWidget(item: this);
@@ -37,7 +39,7 @@ class TextItem implements Item {
 
   @override
   Map<String, dynamic> toJson() {
-    var id = itemId != null ? '"itemId": $itemId,' : "";
+    var id = itemId != -1 ? '"itemId": $itemId,' : "";
     String item = '{$id"text": "$text","note": {"noteId": $noteId}}';
     return jsonDecode(item);
   }

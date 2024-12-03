@@ -27,7 +27,7 @@ class _ImageItemWidgetState extends State<ImageItemWidget> {
             Image.memory(widget.item.imageBytes, fit: BoxFit.fitWidth),
             const SizedBox(height: 10),
             SizedBox(
-              width: double.infinity, // Makes the button fill the available width
+              width: double.infinity,
               child: FilledButton(
                 onPressed: () => ItemApi.deleteItemById(widget.item.itemId),
                 style: ButtonStyle(
