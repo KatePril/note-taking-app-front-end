@@ -7,7 +7,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'dart:convert';
 
 class HeaderItem extends TextItem {
-  HeaderItem(super._text, super.noteId);
+  HeaderItem(super.text, super.noteId);
 
   HeaderItem.withId(int super.itemId, super.text, super.noteId)
       : super.withId();

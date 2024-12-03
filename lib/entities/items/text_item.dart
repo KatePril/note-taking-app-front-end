@@ -8,17 +8,12 @@ import 'dart:convert';
 
 class TextItem implements Item {
   int? itemId;
-  String _text;
+  String text;
   final int noteId;
 
-  TextItem(this._text, this.noteId);
+  TextItem(this.text, this.noteId);
 
-
-  TextItem.withId(this.itemId, this._text, this.noteId);
-
-  String get text => _text;
-
-  set text(String text) => _text = text;
+  TextItem.withId(this.itemId, this.text, this.noteId);
 
   @override
   Widget buildWidget() => TextItemWidget(item: this);
@@ -30,7 +25,7 @@ class TextItem implements Item {
       build: (pw.Context context) {
         return pw.Center(
           child: pw.Text(
-            _text,
+            text,
             style: const pw.TextStyle(
               fontSize: 14
             ),

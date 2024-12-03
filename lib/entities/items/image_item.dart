@@ -10,13 +10,13 @@ import 'package:pdf/widgets.dart' as pw;
 import 'dart:convert';
 
 class ImageItem implements Item {
-  int? itemId;
+  int? _itemId;
   final Uint8List _imageBytes;
-  final int noteId;
+  final int _noteId;
 
-  ImageItem(this._imageBytes, this.noteId);
+  ImageItem(this._imageBytes, this._noteId);
 
-  ImageItem.withId(this.itemId, this._imageBytes, this.noteId);
+  ImageItem.withId(this._itemId, this._imageBytes, this._noteId);
 
   Uint8List get imageBytes => _imageBytes;
 
@@ -39,8 +39,8 @@ class ImageItem implements Item {
 
   @override
   Map<String, dynamic> toJson() {
-    var id = itemId != null ? '"itemId": $itemId,' : "";
-    String item = '{$id"image": "${_imageBytes.toString()}","note": {"noteId": $noteId}}';
+    var id = _itemId != null ? '"itemId": $_itemId,' : "";
+    String item = '{$id"image": "${_imageBytes.toString()}","note": {"noteId": $_noteId}}';
     return jsonDecode(item);
   }
 

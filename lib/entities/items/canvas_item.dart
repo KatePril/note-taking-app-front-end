@@ -11,15 +11,15 @@ import 'package:pdf/widgets.dart' as pw;
 import 'dart:convert';
 
 class CanvasItem implements Item {
-  int? itemId;
+  int? _itemId;
   Uint8List imageBytes;
   List<Offset?> points = [];
-  final int noteId;
+  final int _noteId;
 
-  CanvasItem(this.imageBytes, this.noteId);
+  CanvasItem(this.imageBytes, this._noteId);
 
 
-  CanvasItem.withId(this.itemId, this.imageBytes, this.points, this.noteId);
+  CanvasItem.withId(this._itemId, this.imageBytes, this.points, this._noteId);
 
   @override
   Widget buildWidget() {
@@ -42,9 +42,9 @@ class CanvasItem implements Item {
 
   @override
   Map<String, dynamic> toJson() {
-    var id = itemId != null ? '"itemId": $itemId,' : "";
+    var id = _itemId != null ? '"itemId": $_itemId,' : "";
     var pointsParsed = OffsetsParser.parseOffsets(points);
-    String item = '{$id"canvas": "${imageBytes.toString()}", "offsets": "$pointsParsed", "note": {"noteId": $noteId}}';
+    String item = '{$id"canvas": "${imageBytes.toString()}", "offsets": "$pointsParsed", "note": {"noteId": $_noteId}}';
     return jsonDecode(item);
   }
 
