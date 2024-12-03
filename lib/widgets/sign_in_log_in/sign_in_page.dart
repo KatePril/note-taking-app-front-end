@@ -26,12 +26,21 @@ class _SignInPageState extends State<SignInPage> {
     _passwordController = TextEditingController(text: widget.user.password);
   }
 
+  void clearState() {
+    setState(() {
+      _usernameController.text = "";
+      _passwordController.text = "";
+      widget.user = User.newUser("", "");
+      widget.message = "";
+    });
+  }
+
   void navigateToHome(int id) {
+    clearState();
     Navigator.push(
       context, MaterialPageRoute(
       builder: (context) => MyHomePage(
-          title: 'Note Taker',
-          id: id
+          title: 'Note Taker', id: id
         )
       )
     );
@@ -40,16 +49,8 @@ class _SignInPageState extends State<SignInPage> {
   void createNewUser() async {
     int id = await UserApi.createUser(widget.user);
     if (id == -1) {
-      setState(() {
-        widget.message = "Username already exists";
-      });
+      setState(() => widget.message = "Username already exists");
     } else {
-      setState(() {
-        _usernameController.text = "";
-        _passwordController.text = "";
-        widget.user = User.newUser("", "");
-        widget.message = "";
-      });
       navigateToHome(id);
     }
   }
@@ -57,16 +58,8 @@ class _SignInPageState extends State<SignInPage> {
   void logIn() async {
     int id = await UserApi.getUserId(widget.user);
     if (id == -1) {
-      setState(() {
-        widget.message = "Incorrect username or password";
-      });
+      setState(() => widget.message = "Incorrect username or password");
     } else {
-      setState(() {
-        _usernameController.text = "";
-        _passwordController.text = "";
-        widget.user = User.newUser("", "");
-        widget.message = "";
-      });
       navigateToHome(id);
     }
   }
@@ -83,25 +76,21 @@ class _SignInPageState extends State<SignInPage> {
               Text(widget.message),
               const SizedBox(height: 16.0),
               SignInInput(
-                  _usernameController,
-                  (value) {
-                    setState(() {
-                      widget.user.username = value;
-                    });
+                  textController: _usernameController,
+                  onChanged: (value) {
+                    setState(() => widget.user.username = value);
                   },
-                  'Username',
-                  'Enter your username',
+                  labelText: 'Username',
+                  hintText: 'Enter your username',
               ),
               const SizedBox(height: 16.0),
               SignInInput(
-                  _passwordController,
-                  (value) {
-                    setState(() {
-                      widget.user.password = value;
-                    });
+                  textController: _passwordController,
+                  onChanged: (value) {
+                    setState(() => widget.user.password = value);
                   },
-                  'Password',
-                  'Enter your password'
+                  labelText: 'Password',
+                  hintText: 'Enter your password',
               ),
               const SizedBox(height: 16.0),
               FilledButton(

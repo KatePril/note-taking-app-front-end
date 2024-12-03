@@ -6,8 +6,17 @@ class SignInInput extends StatelessWidget {
   final String _labelText;
   final String _hintText;
 
-  const SignInInput(this._textController, this._onChanged, this._labelText,
-      this._hintText, {super.key});
+  const SignInInput({
+    required TextEditingController textController,
+    required ValueChanged<String> onChanged,
+    required String labelText,
+    required String hintText,
+    super.key,
+  })  : _textController = textController,
+        _onChanged = onChanged,
+        _labelText = labelText,
+        _hintText = hintText;
+
 
   @override
   Widget build(BuildContext context) {
