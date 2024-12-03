@@ -18,6 +18,7 @@ class CanvasItem implements Item {
 
   CanvasItem(this.imageBytes, this._noteId);
 
+  int get itemId => _itemId ?? -1;
 
   CanvasItem.withId(this._itemId, this.imageBytes, this.points, this._noteId);
 

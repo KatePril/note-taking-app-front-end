@@ -55,4 +55,11 @@ class ItemApi {
       jsonDecode(response.body),
     );
   }
+
+  static Future<String> deleteItemById(int id) async {
+    http.Response response = await http.delete(
+      Uri.parse("$_uri/$id"),
+    );
+    return response.body;
+  }
 }

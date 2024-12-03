@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/db_connection/item_api.dart';
 import 'package:note_taking_app/entities/items/header_item.dart';
 
 class HeaderItemWidget extends StatefulWidget {
@@ -31,13 +32,28 @@ class _HeaderItemWidgetState extends State<HeaderItemWidget> {
           .primary,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: TextField(
-          controller: _headerController,
-          onChanged: (value) => item.text = _headerController.text,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold
-          ),
+        child: Column(
+          children: [
+            TextField(
+              controller: _headerController,
+              onChanged: (value) => item.text = _headerController.text,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              width: double.infinity, // Makes the button fill the available width
+              child: FilledButton(
+                onPressed: () => ItemApi.deleteItemById(item.itemId ?? -1),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.error),
+                ),
+                child: const Icon(Icons.delete, size: 24),
+              ),
+            ),
+          ],
         ),
       ),
     );

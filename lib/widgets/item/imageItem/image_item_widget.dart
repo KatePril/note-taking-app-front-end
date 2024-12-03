@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_taking_app/db_connection/item_api.dart';
 import 'package:note_taking_app/entities/items/image_item.dart';
 
 class ImageItemWidget extends StatefulWidget {
@@ -21,7 +22,22 @@ class _ImageItemWidgetState extends State<ImageItemWidget> {
           .inversePrimary,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Image.memory(widget.item.imageBytes, fit: BoxFit.fitWidth),
+        child: Column(
+          children: [
+            Image.memory(widget.item.imageBytes, fit: BoxFit.fitWidth),
+            const SizedBox(height: 10),
+            SizedBox(
+              width: double.infinity, // Makes the button fill the available width
+              child: FilledButton(
+                onPressed: () => ItemApi.deleteItemById(widget.item.itemId),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.error),
+                ),
+                child: const Icon(Icons.delete, size: 24),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

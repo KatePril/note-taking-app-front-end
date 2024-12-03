@@ -20,6 +20,8 @@ class ImageItem implements Item {
 
   Uint8List get imageBytes => _imageBytes;
 
+  int get itemId => _itemId ?? -1;
+
   @override
   Widget buildWidget() {
     return ImageItemWidget(item: this);

@@ -52,4 +52,11 @@ class NoteApi {
     );
     return Note.fromJson(jsonDecode(response.body));
   }
+
+  static Future<String> deleteNoteById(int id) async {
+    http.Response response = await http.delete(
+      Uri.parse("$_uri/$id"),
+    );
+    return response.body;
+  }
 }
