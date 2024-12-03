@@ -48,6 +48,7 @@ class _SignInPageState extends State<SignInPage> {
         _usernameController.text = "";
         _passwordController.text = "";
         widget.user = User.newUser("", "");
+        widget.message = "";
       });
       navigateToHome(id);
     }
@@ -64,6 +65,7 @@ class _SignInPageState extends State<SignInPage> {
         _usernameController.text = "";
         _passwordController.text = "";
         widget.user = User.newUser("", "");
+        widget.message = "";
       });
       navigateToHome(id);
     }

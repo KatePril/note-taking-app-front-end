@@ -33,8 +33,7 @@ class UserApi {
     http.Response response = await http.get(
       Uri.parse("$_uri/${user.username}"),
     );
-    // TODO fix usernames that don't exist
-    if (response.body != null) {
+    if (response.body.isNotEmpty) {
       var userJson = jsonDecode(response.body);
       var password = userJson["password"];
       final h = Crypt(password);
