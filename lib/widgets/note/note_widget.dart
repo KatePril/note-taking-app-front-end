@@ -4,10 +4,10 @@ import 'package:note_taking_app/entities/note.dart';
 import 'package:note_taking_app/widgets/delete_button.dart';
 
 class NoteWidget extends StatelessWidget {
-  final Note note;
-  final Function loadNotes;
+  final Note _note;
+  final Function _loadNotes;
 
-  const NoteWidget({required this.note, required this.loadNotes, super.key});
+  const NoteWidget({required Note note, required Function loadNotes, super.key}) : _loadNotes = loadNotes, _note = note;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class NoteWidget extends StatelessWidget {
               height: 50,
               child: Center(
                 child: Text(
-                  note.title,
+                  _note.title,
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -36,8 +36,8 @@ class NoteWidget extends StatelessWidget {
             const Spacer(),
             DeleteButton(
               onPressed: () async {
-                await NoteApi.deleteNoteById(note.noteId);
-                loadNotes();
+                await NoteApi.deleteNoteById(_note.noteId);
+                _loadNotes();
               },
               width: null,
             ),

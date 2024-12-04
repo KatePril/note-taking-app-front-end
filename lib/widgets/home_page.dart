@@ -16,7 +16,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Note> notes = List.empty(growable: true);
+  List<Note> _notes = List.empty(growable: true);
 
   @override
   void initState() {
@@ -25,7 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _loadNotes() async {
-    notes = await NoteApi.getNotesByUser(widget.id);
+    _notes = await NoteApi.getNotesByUser(widget.id);
     setState(() {});
   }
 
@@ -60,18 +60,18 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: ListView.builder(
-        itemCount: notes.length,
+        itemCount: _notes.length,
         itemBuilder: (context, index) {
           return ListTile(
             title: NoteWidget(
-              note: notes[index],
+              note: _notes[index],
               loadNotes: _loadNotes,
             ),
             onTap: () {
               Navigator.push(
                   context, MaterialPageRoute(
                   builder: (context) => NoteScreen(
-                    id: notes[index].noteId,
+                    id: _notes[index].noteId,
                     homeState: () => _loadNotes(),
                   )
                 )

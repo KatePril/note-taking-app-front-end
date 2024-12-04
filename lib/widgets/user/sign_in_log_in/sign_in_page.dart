@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:note_taking_app/db_connection/user_api.dart';
 import 'package:note_taking_app/entities/user.dart';
 import 'package:note_taking_app/widgets/home_page.dart';
-import 'package:note_taking_app/widgets/user/sign_in_log_in/sign_in_input.dart';
+import 'package:note_taking_app/widgets/user/sign_in_log_in/user_input.dart';
 
 class SignInPage extends StatefulWidget {
-  User user = User.newUser("", "");
-  String message = "";
 
-  SignInPage({super.key});
+  const SignInPage({super.key});
 
   @override
   State<StatefulWidget> createState() => _SignInPageState();
@@ -16,27 +14,29 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  User _user = User.newUser("", "");
+  String _message = "";
   late TextEditingController _usernameController;
   late TextEditingController _passwordController;
 
   @override
   void initState() {
     super.initState();
-    _usernameController = TextEditingController(text: widget.user.username);
-    _passwordController = TextEditingController(text: widget.user.password);
+    _usernameController = TextEditingController(text: _user.username);
+    _passwordController = TextEditingController(text: _user.password);
   }
 
-  void clearState() {
+  void _clearState() {
     setState(() {
       _usernameController.text = "";
       _passwordController.text = "";
-      widget.user = User.newUser("", "");
-      widget.message = "";
+      _user = User.newUser("", "");
+      _message = "";
     });
   }
 
-  void navigateToHome(int id) {
-    clearState();
+  void _navigateToHome(int id) {
+    _clearState();
     Navigator.push(
       context, MaterialPageRoute(
       builder: (context) => MyHomePage(
@@ -46,21 +46,21 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  void createNewUser() async {
-    int id = await UserApi.createUser(widget.user);
+  void _createNewUser() async {
+    int id = await UserApi.createUser(_user);
     if (id == -1) {
-      setState(() => widget.message = "Username already exists");
+      setState(() => _message = "Username already exists");
     } else {
-      navigateToHome(id);
+      _navigateToHome(id);
     }
   }
 
-  void logIn() async {
-    int id = await UserApi.getUserId(widget.user);
+  void _logIn() async {
+    int id = await UserApi.getUserId(_user);
     if (id == -1) {
-      setState(() => widget.message = "Incorrect username or password");
+      setState(() => _message = "Incorrect username or password");
     } else {
-      navigateToHome(id);
+      _navigateToHome(id);
     }
   }
 
@@ -73,21 +73,21 @@ class _SignInPageState extends State<SignInPage> {
           padding: const EdgeInsets.all(16.0),
             child:Column(
             children: [
-              Text(widget.message),
+              Text(_message),
               const SizedBox(height: 16.0),
-              SignInInput(
+              UserInput(
                   textController: _usernameController,
                   onChanged: (value) {
-                    setState(() => widget.user.username = value);
+                    setState(() => _user.username = value);
                   },
                   labelText: 'Username',
                   hintText: 'Enter your username',
               ),
               const SizedBox(height: 16.0),
-              SignInInput(
+              UserInput(
                   textController: _passwordController,
                   onChanged: (value) {
-                    setState(() => widget.user.password = value);
+                    setState(() => _user.password = value);
                   },
                   labelText: 'Password',
                   hintText: 'Enter your password',
@@ -98,7 +98,7 @@ class _SignInPageState extends State<SignInPage> {
                   backgroundColor: Theme
                       .of(context).colorScheme.primary
                 ),
-                onPressed: () => logIn(),
+                onPressed: () => _logIn(),
                 child: const Text("Log in"),
               ),
               const SizedBox(height: 16.0),
@@ -107,7 +107,7 @@ class _SignInPageState extends State<SignInPage> {
                     backgroundColor: Theme
                         .of(context).colorScheme.tertiary
                 ),
-                onPressed: () => createNewUser(),
+                onPressed: () => _createNewUser(),
                 child: const Text("Sign in"),
               ),
             ],
@@ -116,5 +116,4 @@ class _SignInPageState extends State<SignInPage> {
       )
     );
   }
-
 }

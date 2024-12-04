@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:note_taking_app/db_connection/user_api.dart';
 import 'package:note_taking_app/entities/user.dart';
-import 'package:note_taking_app/widgets/user/sign_in_log_in/sign_in_input.dart';
+import 'package:note_taking_app/widgets/user/sign_in_log_in/user_input.dart';
 
 class ProfilePage extends StatefulWidget {
   final int id;
   
-  const ProfilePage(this.id);
+  const ProfilePage(this.id, {super.key});
 
   @override
   State<StatefulWidget> createState() => _ProfilePageState();
@@ -16,7 +16,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   User user = User.newUser("", "");
   String _oldPassword = "";
-  String message = "";
+  String _message = "";
   late TextEditingController _usernameController;
   late TextEditingController _oldPasswordController;
   late TextEditingController _newPasswordController;
@@ -38,23 +38,22 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void _updateUsername() async {
-    print(user.username);
     int id = await UserApi.changeUsername(user);
     if (id == -1) {
-      setState(() => message = "This username is already taken");
+      setState(() => _message = "This username is already taken");
     } else {
       _loadUser();
-      message = "";
+      _message = "";
     }
   }
 
   void _updatePassword() async {
     int id = await UserApi.changePassword(user, _oldPassword);
     if (id == -1) {
-      setState(() => message = "Incorrect password");
+      setState(() => _message = "Incorrect password");
     } else {
       _loadUser();
-      message = "";
+      _message = "";
     }
   }
 
@@ -74,9 +73,9 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Text(message),
+              Text(_message),
               const SizedBox(height: 8),
-              SignInInput(
+              UserInput(
                 textController: _usernameController,
                 onChanged: (value) {
                   setState(() => user.username = value);
@@ -94,7 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: const Text("Update username"),
               ),
               const SizedBox(height: 8),
-              SignInInput(
+              UserInput(
                 textController: _oldPasswordController,
                 onChanged: (value) {
                   setState(() => _oldPassword = value);
@@ -103,7 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 hintText: 'Enter old password',
               ),
               const SizedBox(height: 8),
-              SignInInput(
+              UserInput(
                 textController: _newPasswordController,
                 onChanged: (value) {
                   setState(() => user.password = value);

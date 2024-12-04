@@ -1,0 +1,89 @@
+@startuml
+
+class MyApp {
+    + MyApp({super.key})
+    + build(BuildContext context): Widget
+}
+
+class ProfilePage {
+    + final id: int
+    + ProfilePage(this.id, {super.key});
+    + createState(): State<StatefulWidget>
+}
+
+class _ProfilePageState {
+    + user: User
+    - _oldPassword: String
+    - _message: String
+    - _usernameController: TextEditingController
+    - _oldPasswordController: TextEditingController
+    - _newPasswordController: TextEditingController
+    + initState(): void
+    - _loadUser(): void
+    - _updateUsername(): void
+    - _updatePassword(): void
+    - _deleteUser(): void
+    + build(BuildContext context): Widget
+}
+
+class SignInPage {
+    + SignInPage(): void
+    + createState(): _SignInPageState
+}
+
+class _SignInPageState {
+    - _user: User
+    - _message: String
+    - _usernameController: TextEditingController
+    - _passwordController: TextEditingController
+    + initState(): void
+    - _clearState(): void
+    - _navigateToHome(id: int): void
+    - _createNewUser(): void
+    - _logIn(): void
+    + build(BuildContext context): Widget
+}
+
+class UserInput {
+    - _textController: TextEditingController
+    - _onChanged: ValueChanged<String>?
+    - _labelText: String?
+    - _hintText: String
+    + UserInput(textController: TextEditingController, onChanged: ValueChanged<String>, labelText: String?, hintText: String)
+    + build(BuildContext context): Widget
+}
+
+class MyHomePage {
+    + title: String
+    + id: int
+    + MyHomePage(title: String, id: int): void
+    + createState(): _MyHomePageState
+}
+
+class _MyHomePageState {
+    - _notes: List<Note>
+    + initState(): void
+    - _loadNotes(): Future<void>
+    - _addNote(): Future<void>
+    + build(BuildContext context): Widget
+}
+
+class DeleteButton {
+    + onPressed: Function
+    + width: double?
+    + DeleteButton(onPressed: Function, width: double?): void
+    + createState(): _DeleteButtonState
+}
+
+class _DeleteButtonState {
+    + build(BuildContext context): Widget
+}
+
+MyApp --> SignInPage :uses
+SignInPage --> _SignInPageState :uses
+ProfilePage --> _ProfilePageState :uses
+_SignInPageState --> UserInput :uses
+_ProfilePageState --> UserInput :uses
+MyHomePage --> _MyHomePageState :uses
+SignInPage --> MyHomePage :uses
+@enduml
