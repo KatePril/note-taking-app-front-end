@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class SignInInput extends StatelessWidget {
   final TextEditingController _textController;
   final ValueChanged<String>? _onChanged;
-  final String _labelText;
+  final String? _labelText;
   final String _hintText;
 
   const SignInInput({
     required TextEditingController textController,
     required ValueChanged<String> onChanged,
-    required String labelText,
+    required String? labelText,
     required String hintText,
     super.key,
   })  : _textController = textController,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:note_taking_app/db_connection/user_api.dart';
 import 'package:note_taking_app/entities/user.dart';
 import 'package:note_taking_app/widgets/home_page.dart';
-import 'package:note_taking_app/widgets/sign_in_log_in/sign_in_input.dart';
+import 'package:note_taking_app/widgets/user/sign_in_log_in/sign_in_input.dart';
 
 class SignInPage extends StatefulWidget {
   User user = User.newUser("", "");

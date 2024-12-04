@@ -18,8 +18,9 @@ class _DeleteButtonState extends State<DeleteButton> {
       width: widget.width,
       child: FilledButton(
         onPressed: () => widget.onPressed(),
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.error),
+        style: FilledButton.styleFrom(
+            backgroundColor: Theme
+                .of(context).colorScheme.error
         ),
         child: const Icon(Icons.delete, size: 24),
       ),

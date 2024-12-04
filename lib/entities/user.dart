@@ -11,9 +11,16 @@ class User implements Jsonable {
 
   User.newUser(this.username, this.password);
 
+  static User fromJson(Map<String, dynamic> user) {
+    var userId = user["userId"];
+    var username = user["username"];
+    var password = user["password"];
+    return User(userId, username, password);
+  }
+
   @override
   Map<String, dynamic> toJson() {
-    var id = userId != null ? '"user_id": $userId,' : "";
+    var id = userId != null ? '"userId": $userId,' : "";
     String user = '{$id"username": "$username","password": "$password"}';
     return jsonDecode(user);
   }

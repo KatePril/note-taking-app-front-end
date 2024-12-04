@@ -3,6 +3,7 @@ import 'package:note_taking_app/db_connection/note_api.dart';
 import 'package:note_taking_app/entities/note.dart';
 import 'package:note_taking_app/widgets/note/screen/note_screen.dart';
 import 'package:note_taking_app/widgets/note/note_widget.dart';
+import 'package:note_taking_app/widgets/user/profile_page.dart';
 
 class MyHomePage extends StatefulWidget {
   final String title;
@@ -41,7 +42,22 @@ class _MyHomePageState extends State<MyHomePage> {
             .of(context)
             .colorScheme
             .inversePrimary,
-        title: Text(widget.title),
+        title: Row(
+          children: [
+            Text(widget.title),
+            const Spacer(),
+            FilledButton(
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(
+                    builder: (context) => ProfilePage(widget.id)
+                  )
+                );
+              },
+              child: const Icon(Icons.person, size: 24),
+            ),
+          ]
+        ),
       ),
       body: ListView.builder(
         itemCount: notes.length,
