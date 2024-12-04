@@ -22,6 +22,14 @@ class CanvasItem implements Item {
 
   CanvasItem.withId(this._itemId, this.imageBytes, this.points, this._noteId);
 
+  static CanvasItem fromJson(Map<String, dynamic> item) {
+    var itemId = item["itemId"];
+    var canvas = BytesParser.parseString(item["canvas"]);
+    var points = OffsetsParser.parseString(item["offsets"]);
+    var noteId = item["note"]["noteId"];
+    return CanvasItem.withId(itemId, canvas, points, noteId);
+  }
+
   @override
   Widget buildWidget(Function loadItems) =>
       CanvasItemWidget(item: this, loadItems: loadItems);
@@ -46,14 +54,6 @@ class CanvasItem implements Item {
     var pointsParsed = OffsetsParser.parseOffsets(points);
     String item = '{$id"canvas": "${imageBytes.toString()}", "offsets": "$pointsParsed", "note": {"noteId": $_noteId}}';
     return jsonDecode(item);
-  }
-
-  static CanvasItem fromJson(Map<String, dynamic> item) {
-    var itemId = item["itemId"];
-    var canvas = BytesParser.parseString(item["canvas"]);
-    var points = OffsetsParser.parseString(item["offsets"]);
-    var noteId = item["note"]["noteId"];
-    return CanvasItem.withId(itemId, canvas, points, noteId);
   }
 
 }

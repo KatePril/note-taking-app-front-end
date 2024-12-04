@@ -26,7 +26,7 @@ class ItemApi {
     return response.body;
   }
 
-  static Future<String>  updateItem(Item item) async {
+  static Future<String> updateItem(Item item) async {
     http.Response response = await http.put(
       Uri.parse(_uri),
       headers: {'Content-Type': 'application/json'},

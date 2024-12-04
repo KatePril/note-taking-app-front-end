@@ -5,6 +5,146 @@ class MyApp {
     + build(BuildContext context): Widget
 }
 
+class ItemApi {
+    - {static} final _uri: String
+    - ItemApi._internal()
+    - {static} final _instance: ItemApi
+    + factory ItemApi(): ItemApi
+    + {static} createItem(item: Item): Future<String>
+    + {static} updateItem(item: Item): Future<String>
+    + {static} getItemsByNote(id: int): Future<List<Item>>
+    + {static} getItemById(id: int): Future<Item>
+    + {static} deleteItemById(id: int): Future<String>
+}
+
+class NoteApi {
+    - {static} final _uri: String
+    - NoteApi._internal()
+    - {static} final _instance: NoteApi
+    + factory NoteApi(): NoteApi
+    + {static} createNote(note: Note): Future<String>
+    + {static} updateNote(note: Note): Future<Note>
+    + {static} getNotesByUser(id: int): Future<List<Note>>
+    + {static} getNoteById(id: int): Future<Note>
+    + {static} deleteNoteById(id: int): Future<String>
+}
+
+class UserApi {
+    - {static} final _uri: String
+    - UserApi._internal()
+    - {static} final _instance: UserApi
+    + factory UserApi(): UserApi
+    + {static} createUser(user: User): Future<int>
+    + {static} getUserId(user: User): Future<int>
+    + {static} getUser(id: int): Future<User>
+    + {static} changeUsername(user: User): Future<int>
+    + {static} changePassword(user: User, oldPassword: String): Future<int>
+    + {static} deleteUser(id: int): Future<String>
+}
+
+class BytesParser {
+  - {static} _instance: BytesParser
+  - BytesParser._internal()
+  + factory BytesParser()
+  + {static} parseString(str: String): Uint8List
+}
+
+class ItemFactory {
+  - {static} _instance: ItemFactory
+  - ItemFactory._internal()
+  + static ItemFactory()
+  + {static} createItem(item: Map<String, dynamic>): Item
+}
+
+
+class OffsetsParser {
+  - {static} _instance: OffsetsParser
+  - OffsetsParser._internal()
+  + factory OffsetsParser()
+  + {static} parseOffsets(offsets: List<Offset?>): String
+  + {static} parseString(str: String): List<Offset?>
+}
+
+
+abstract class Jsonable {
+    + toJson(): Map<String, dynamic>
+}
+
+class User implements Jsonable {
+    + userId: int?
+    + username: String
+    + password: String
+    + User(userId: int?, username: String, password: String)
+    + User.newUser(username: String, password: String)
+    + {static} fromJson(user: Map<String, dynamic>): User
+    + toJson(): Map<String, dynamic>
+}
+
+class Note implements Jsonable {
+    - _noteId: int?
+    - _userId: int
+    + title: String
+    + Note(title: String, userId: int)
+    + Note.withId(noteId: int?, title: String, userId: int)
+    + noteId(): int
+    + {static} fromJson(note: Map<String, dynamic>): Note
+    + buildDocument(): Future<pw.Document>
+    + toJson(): Map<String, dynamic>
+}
+
+abstract class Item implements Jsonable {
+    + buildWidget(loadItems: Function): Widget
+    + buildPdf(): pw.Page
+}
+
+class TextItem implements Item {
+    - int? _itemId
+    + String text
+    + int noteId
+    + TextItem(text: String, noteId: int)
+    + TextItem.withId(itemId: int, text: String, noteId: int)
+    + itemId: int
+    + {static} fromJson(item: Map<String, dynamic>): TextItem
+    + buildWidget(loadItems: Function): Widget
+    + buildPdf(): pw.Page
+    + toJson(): Map<String, dynamic>
+}
+
+class HeaderItem extends TextItem {
+    + HeaderItem(text: String, noteId: int)
+    + HeaderItem.withId(itemId: int, text: String, noteId: int)
+    + {static} fromJson(item: Map<String, dynamic>): HeaderItem
+    + buildWidget(loadItems: Function): Widget
+    + buildPdf(): pw.Page
+    + toJson(): Map<String, dynamic>
+}
+
+class ImageItem implements Item {
+    - _itemId: int
+    - _imageBytes: Uint8List
+    - _noteId: int
+    + ImageItem(imageBytes: Uint8List, noteId: int)
+    + ImageItem.withId(itemId: int, imageBytes: Uint8List, noteId: int)
+    + {static} fromJson(item: Map<String, dynamic>): ImageItem
+    + buildWidget(loadItems: Function): Widget
+    + buildPdf(): pw.Page
+    + toJson(): Map<String, dynamic>
+}
+
+class CanvasItem implements Item {
+  - _itemId: int?
+  + imageBytes: Uint8List
+  -+ points: List<Offset?>
+  - _noteId: int
+  + CanvasItem(imageBytes: Uint8List, noteId: int)
+  + CanvasItem.withId(itemId: int, imageBytes: Uint8List, points: List<Offset?>, noteId: int)
+  + {static} fromJson(item: Map<String, dynamic>): CanvasItem
+  + itemId: int
+  + buildWidget(loadItems: Function): Widget
+  + buildPdf(): pw.Page
+  + toJson(): Map<String, dynamic>
+}
+
 class ProfilePage {
     + final id: int
     + ProfilePage(this.id, {super.key});
@@ -79,11 +219,60 @@ class _DeleteButtonState {
     + build(BuildContext context): Widget
 }
 
+class NoteWidget {
+    - _note: Note
+    - _loadNotes: Function
+    + NoteWidget(note: Note, loadNotes: Function): void
+    + build(BuildContext context): Widget
+}
+
+class NoteScreen {
+    + id: int
+    + homeState: Function
+    + NoteScreen(id: int, homeState: Function): void
+    + createState(): _NoteScreenState
+}
+
+class _NoteScreenState {
+    - _items: List<Item>
+    - _note: Note
+    - _titleController: TextEditingController
+    + initState(): void
+    _ _loadNote(): Future<void>
+    _ _loadItems(): Future<void>
+    + build(context: BuildContext): Widget
+}
+
+class NoteBottomNavigationBar {
+  - Map<int, Function()> _functions
+  + NoteBottomNavigationBar(functions: Map<int, Function()>)
+  + build(context: BuildContext): Widget
+}
+
 MyApp --> SignInPage :uses
+ItemApi --> ItemFactory :uses
+CanvasItem --> OffsetsParser :uses
+CanvasItem --> BytesParser :uses
+ImageItem --> BytesParser :uses
 SignInPage --> _SignInPageState :uses
 ProfilePage --> _ProfilePageState :uses
 _SignInPageState --> UserInput :uses
 _ProfilePageState --> UserInput :uses
 MyHomePage --> _MyHomePageState :uses
 SignInPage --> MyHomePage :uses
+MyHomePage --> ProfilePage :uses
+MyHomePage --> NoteWidget :uses
+MyHomePage --> NoteScreen :uses
+NoteWidget --> DeleteButton :uses
+NoteScreen --> _NoteScreenState :uses
+DeleteButton --> _DeleteButtonState :uses
+_NoteScreenState --> NoteBottomNavigationBar :uses
+_NoteScreenState --> DeleteButton :uses
+_SignInPageState --o User
+_ProfilePageState --o User
+UserApi --> User
+NoteApi --> Note
+_MyHomePageState --o Note
+_NoteScreenState --o Note
+
 @enduml

@@ -22,6 +22,13 @@ class ImageItem implements Item {
 
   int get itemId => _itemId ?? -1;
 
+  static ImageItem fromJson(Map<String, dynamic> item) {
+    var itemId = item["itemId"];
+    var image = BytesParser.parseString(item["image"]);
+    var noteId = item["note"]["noteId"];
+    return ImageItem.withId(itemId, image, noteId);
+  }
+
   @override
   Widget buildWidget(Function loadItems) =>
       ImageItemWidget(item: this, loadItems: loadItems);
@@ -44,12 +51,4 @@ class ImageItem implements Item {
     String item = '{$id"image": "${_imageBytes.toString()}","note": {"noteId": $_noteId}}';
     return jsonDecode(item);
   }
-
-  static ImageItem fromJson(Map<String, dynamic> item) {
-    var itemId = item["itemId"];
-    var image = BytesParser.parseString(item["image"]);
-    var noteId = item["note"]["noteId"];
-    return ImageItem.withId(itemId, image, noteId);
-  }
-
 }

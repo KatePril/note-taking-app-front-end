@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class NoteBottomNavigationBar extends StatelessWidget {
-  const NoteBottomNavigationBar({super.key, required this.functions});
-  final Map<int, Function()> functions;
+  final Map<int, Function()> _functions;
+
+  const NoteBottomNavigationBar({super.key, required Map<int, dynamic Function()> functions}) : _functions = functions;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class NoteBottomNavigationBar extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
         ),
       ],
-      onTap: (index) => functions[index]!(),
+      onTap: (index) => _functions[index]!(),
     );
   }
 }

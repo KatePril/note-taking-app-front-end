@@ -17,6 +17,13 @@ class TextItem implements Item {
 
   int get itemId => _itemId ?? -1;
 
+  static TextItem fromJson(Map<String, dynamic> item) {
+    var itemId = item["itemId"];
+    var text = item["text"];
+    var noteId = item["note"]["noteId"];
+    return TextItem.withId(itemId, text, noteId);
+  }
+
   @override
   Widget buildWidget(Function loadItems) =>
       TextItemWidget(item: this, loadItems: loadItems);
@@ -43,12 +50,5 @@ class TextItem implements Item {
     var id = itemId != -1 ? '"itemId": $itemId,' : "";
     String item = '{$id"text": "$text","note": {"noteId": $noteId}}';
     return jsonDecode(item);
-  }
-
-  static TextItem fromJson(Map<String, dynamic> item) {
-    var itemId = item["itemId"];
-    var text = item["text"];
-    var noteId = item["note"]["noteId"];
-    return TextItem.withId(itemId, text, noteId);
   }
 }

@@ -12,6 +12,13 @@ class HeaderItem extends TextItem {
   HeaderItem.withId(int super.itemId, super.text, super.noteId)
       : super.withId();
 
+  static HeaderItem fromJson(Map<String, dynamic> item) {
+    var itemId = item["itemId"];
+    var header = item["header"];
+    var noteId = item["note"]["noteId"];
+    return HeaderItem.withId(itemId, header, noteId);
+  }
+
   @override
   Widget buildWidget(Function loadItems) =>
       HeaderItemWidget(item: this, loadItems: loadItems);
@@ -39,12 +46,5 @@ class HeaderItem extends TextItem {
     var id = itemId != -1 ? '"itemId": $itemId,' : "";
     String item = '{$id"header": "$text","note": {"noteId": $noteId}}';
     return jsonDecode(item);
-  }
-
-  static HeaderItem fromJson(Map<String, dynamic> item) {
-    var itemId = item["itemId"];
-    var header = item["header"];
-    var noteId = item["note"]["noteId"];
-    return HeaderItem.withId(itemId, header, noteId);
   }
 }

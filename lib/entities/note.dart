@@ -13,14 +13,14 @@ class Note implements Jsonable {
   Note(this.title, this._userId);
   Note.withId(this._noteId, this.title, this._userId);
 
+  int get noteId => _noteId ?? -1;
+
   static Note fromJson(Map<String, dynamic> note) {
     var noteId = note["noteId"];
     var title = note["title"];
     var userId = note["user"]["userId"];
     return Note.withId(noteId, title, userId);
   }
-
-  int get noteId => _noteId ?? -1;
 
   Future<pw.Document> buildDocument() async {
     final pdf = pw.Document();
@@ -55,10 +55,5 @@ class Note implements Jsonable {
     var id = _noteId != null ? '"noteId": $_noteId,' : "";
     String note = '{$id"title": "$title","user": {"userId": $_userId}}';
     return jsonDecode(note);
-  }
-
-  @override
-  String toString() {
-    return "$_noteId, $title, $_userId";
   }
 }
