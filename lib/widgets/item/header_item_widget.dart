@@ -15,14 +15,14 @@ class HeaderItemWidget extends StatefulWidget {
 }
 
 class _HeaderItemWidgetState extends State<HeaderItemWidget> {
-  late HeaderItem item;
+  late HeaderItem _item;
   late TextEditingController _headerController;
 
   @override
   void initState() {
     super.initState();
-    item = widget.item;
-    _headerController = TextEditingController(text: item.text);
+    _item = widget.item;
+    _headerController = TextEditingController(text: _item.text);
   }
 
   @override
@@ -38,7 +38,7 @@ class _HeaderItemWidgetState extends State<HeaderItemWidget> {
           children: [
             TextField(
               controller: _headerController,
-              onChanged: (value) => item.text = _headerController.text,
+              onChanged: (value) => _item.text = _headerController.text,
               style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Pencil extends CustomPainter {
-  final List<Offset?> points;
+  final List<Offset?> _points;
 
-  Pencil(this.points);
+  Pencil(this._points);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -12,9 +12,9 @@ class Pencil extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 3.0;
 
-    for (int i = 0; i < points.length - 1; i++) {
-      if (points[i] != null && points[i + 1] != null) {
-        canvas.drawLine(points[i]!, points[i + 1]!, paint);
+    for (int i = 0; i < _points.length - 1; i++) {
+      if (_points[i] != null && _points[i + 1] != null) {
+        canvas.drawLine(_points[i]!, _points[i + 1]!, paint);
       }
     }
   }

@@ -249,6 +249,119 @@ class NoteBottomNavigationBar {
   + build(context: BuildContext): Widget
 }
 
+class NoteCanvas {
+  + final setImage: Function(Future<Uint8List>, List<Offset?>)
+  + points: List<Offset?>
+  + NoteCanvas(key: Key?, setImage: Function(Future<Uint8List>, List<Offset?>))
+  + createState(): _NoteCanvasState
+}
+
+class _NoteCanvasState {
+  + final points: List<Offset?>
+  + initState(): void
+  + build(BuildContext context): Widget
+  - _createImageBytes(BuildContext context): Future<Uint8List>
+}
+
+class Pencil {
+  - _points: List<Offset?>
+  + Pencil(points: List<Offset?>)
+  + paint(canvas: Canvas, size: Size): void
+  + shouldRepaint(oldDelegate: CustomPainter): bool
+}
+
+class CanvasItemWidget {
+  - item: CanvasItem
+  - loadItems: Function
+  + CanvasItemWidget(key: Key?, item: CanvasItem, loadItems: Function)
+  + createState(): _CanvasItemWidgetState
+}
+
+class _CanvasItemWidgetState {
+  + build(BuildContext context): Widget
+}
+
+class CanvasDialogShower {
+  - {static} final _instance: CanvasDialogShower
+  - CanvasDialogShower._internal()
+  + factory CanvasDialogShower()
+  + showCanvasDialog(context: BuildContext, loadItems: Function(), noteId: int?, item: CanvasItem?): void
+}
+
+class CameraDeviceProvider {
+  - {static} final _instance: CameraDeviceProvider
+  - CameraDeviceProvider._internal()
+  + factory CameraDeviceProvider()
+  + getPreferredCameraDevice(context: BuildContext): Future<CameraDevice?>
+}
+
+class ImageSourceProvider {
+  - {static} final _instance: ImageSourceProvider
+  - ImageSourceProvider._internal()
+  + factory ImageSourceProvider()
+  + getImageSource(context: BuildContext): Future<ImageSource>
+}
+
+class MyImageInput {
+  + setImage: Function(Uint8List)
+  + MyImageInput(key: Key?, setImage: Function(Uint8List))
+  + createState(): _MyImageInputState
+}
+
+class _MyImageInputState {
+  - final _imageInputImages: List<XFile>
+  + build(BuildContext context): Widget
+  - _onImageSelected(image: XFile): void
+  - _onImageRemoved(image: XFile, index: int): void
+}
+
+class ImageDialogShower {
+  - {static} final _instance: ImageDialogShower
+  - ImageDialogShower._internal()
+  + factory ImageDialogShower()
+  + showImageDialog(context: BuildContext, loadItems: Function(), noteId: int): void
+}
+
+class ImageItemWidget {
+  + item: ImageItem
+  + loadItems: Function
+  + ImageItemWidget(key: Key?, item: ImageItem, loadItems: Function)
+  + createState(): _ImageItemWidgetState
+}
+
+class _ImageItemWidgetState {
+  + build(BuildContext context): Widget
+}
+
+class HeaderItemWidget {
+  + final item: HeaderItem
+  + final loadItems: Function
+  + HeaderItemWidget(key: Key?, item: HeaderItem, loadItems: Function)
+  + createState(): _HeaderItemWidgetState
+}
+
+class _HeaderItemWidgetState {
+  - _item: HeaderItem
+  - _headerController: TextEditingController
+  + initState(): void
+  + build(BuildContext context): Widget
+}
+
+class TextItemWidget {
+  + item: TextItem
+  + loadItems: Function
+  + TextItemWidget(key: Key?, item: TextItem, loadItems: Function)
+  + createState(): _TextItemWidgetState
+}
+
+class _TextItemWidgetState {
+  - _item: TextItem
+  - _textController: TextEditingController
+  + initState(): void
+  + build(BuildContext context): Widget
+}
+
+
 MyApp --> SignInPage :uses
 ItemApi --> ItemFactory :uses
 CanvasItem --> OffsetsParser :uses
@@ -274,5 +387,34 @@ UserApi --> User
 NoteApi --> Note
 _MyHomePageState --o Note
 _NoteScreenState --o Note
-
+NoteCanvas --> _NoteCanvasState :uses
+_NoteCanvasState --> Pencil :uses
+CanvasDialogShower --> NoteCanvas :uses
+CanvasItem --> CanvasItemWidget :uses
+CanvasItemWidget --> _CanvasItemWidgetState :uses
+CanvasItemWidget --> CanvasDialogShower :uses
+NoteScreen --> CanvasDialogShower :uses
+MyImageInput --> _MyImageInputState :uses
+_MyImageInputState --> CameraDeviceProvider :uses
+ImageDialogShower --> MyImageInput :uses
+_NoteScreenState --> ImageDialogShower :uses
+_MyImageInputState --> ImageSourceProvider :uses
+ImageItemWidget --> _ImageItemWidgetState :uses
+ImageItem --> ImageItemWidget :uses
+HeaderItemWidget --> _HeaderItemWidgetState :uses
+TextItemWidget --> _TextItemWidgetState :uses
+HeaderItem --> HeaderItemWidget :uses
+TextItem --> TextItemWidget :uses
+_CanvasItemWidgetState --> ItemApi :uses
+CanvasDialogShower --> ItemApi :uses
+_HeaderItemWidgetState --> ItemApi: uses
+ImageDialogShower --> ItemApi :uses
+_ImageItemWidgetState --> ItemApi :uses
+_TextItemWidgetState --> ItemApi :uses
+_NoteScreenState --> ItemApi :uses
+_MyHomePageState --> NoteApi :uses
+NoteWidget --> NoteApi :uses
+_NoteScreenState --> NoteApi :uses
+_ProfilePageState --> UserApi :uses
+_SignInPageState --> UserApi :uses
 @enduml

@@ -14,14 +14,14 @@ class TextItemWidget extends StatefulWidget {
 }
 
 class _TextItemWidgetState extends State<TextItemWidget> {
-  late TextItem item;
+  late TextItem _item;
   late TextEditingController _textController;
 
   @override
   void initState() {
     super.initState();
-    item = widget.item;
-    _textController = TextEditingController(text: item.text);
+    _item = widget.item;
+    _textController = TextEditingController(text: _item.text);
   }
 
   @override
@@ -37,7 +37,7 @@ class _TextItemWidgetState extends State<TextItemWidget> {
           children: [
             TextField(
               controller: _textController,
-              onChanged: (value) => item.text = _textController.text,
+              onChanged: (value) => _item.text = _textController.text,
               maxLines: null,
             ),
             const SizedBox(height: 10),

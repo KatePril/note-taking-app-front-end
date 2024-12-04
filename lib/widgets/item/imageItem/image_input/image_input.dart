@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_input/image_input.dart';
 import 'package:note_taking_app/widgets/item/imageItem/image_input/utils/camera_device_provider.dart';
-import 'package:note_taking_app/widgets/item/imageItem/image_input/utils/image_source_dialog.dart';
+import 'package:note_taking_app/widgets/item/imageItem/image_input/utils/image_source_provider.dart';
 
 class MyImageInput extends StatefulWidget {
   final Function(Uint8List) setImage;
@@ -15,7 +15,7 @@ class MyImageInput extends StatefulWidget {
 }
 
 class _MyImageInputState extends State<MyImageInput> {
-  List<XFile> imageInputImages = [];
+  final List<XFile> _imageInputImages = [];
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +27,15 @@ class _MyImageInputState extends State<MyImageInput> {
           ),
           Center(
             child: ImageInput(
-              images: imageInputImages,
+              images: _imageInputImages,
               allowEdit: true,
               allowMaxImage: 1,
               getPreferredCameraDevice: () async =>
                   await CameraDeviceProvider().getPreferredCameraDevice(context),
               getImageSource: () async =>
                   await ImageSourceProvider().getImageSource(context),
-              onImageSelected: onImageSelected,
-              onImageRemoved: onImageRemoved,
+              onImageSelected: _onImageSelected,
+              onImageRemoved: _onImageRemoved,
               loadingBuilder: (context, progress) => const Center(
                 child: CircularProgressIndicator(),
               ),
@@ -46,19 +46,17 @@ class _MyImageInputState extends State<MyImageInput> {
     );
   }
 
-  void onImageSelected(image) async {
+  void _onImageSelected(image) async {
     var b = await image.readAsBytes();
     setState(() {
-      imageInputImages.add(image);
+      _imageInputImages.add(image);
       widget.setImage(b);
     });
   }
 
-  void onImageRemoved(image, index) {
+  void _onImageRemoved(image, index) {
     setState(() {
-      imageInputImages.remove(image);
+      _imageInputImages.remove(image);
     });
   }
-
-
 }
